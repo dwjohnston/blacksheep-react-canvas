@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+require("./style.scss");
+
 class Canvas extends React.Component {
 
 
