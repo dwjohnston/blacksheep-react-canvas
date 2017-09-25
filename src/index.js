@@ -1,5 +1,5 @@
 
-import Canvas from "./Canvas";
+import Canvas from "./Canvas.jsx";
 import CanvasCore from "./CanvasCore";
 import ColorPoint from "./objects/ColorPoint";
 import Circle from "./objects/Circle";
