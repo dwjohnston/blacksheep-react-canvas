@@ -1,98 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-require("./style.scss");
 
-class Canvas extends React.Component {
-
-
-	componentWillMount(){
-		this.setState({appModel: this.props.appModel});
-	}
-
-	resize() {
-		this.w = this.drawCanvas.clientWidth;
-		this.h = this.drawCanvas.clientHeight;
-
-		this.drawCanvas.width = this.drawCanvas.clientWidth;
-		this.paintCanvas.width = this.paintCanvas.clientWidth;
-		this.drawCanvas.height = this.drawCanvas.clientHeight;
-		this.paintCanvas.height = this.paintCanvas.clientHeight;
-
-		this.w = 1000;
-		this.h = 1000;
-
-		this.drawCanvas.width = 1000;
-		this.paintCanvas.width = 1000;
-		this.drawCanvas.height = 1000;
-		this.paintCanvas.height = 1000;
-	}
-
-  componentDidMount() {
-
-	this.resize();
-    //this.context = ReactDOM.findDOMNode(this).getContext('2d');
-
-	this.context = this.drawCanvas.getContext('2d');
-	this.context.globalAlpha = 1;
+import Canvas from "./Canvas";
+import CanvasCore from "./CanvasCore";
+import ColorPoint from "./objects/ColorPoint";
+import Circle from "./objects/Circle";
+import DrawableObject from "./objects/DrawableObject";
+import GradientLine from "./objects/GradientLine";
+import Line from "./objects/Line";
+import Position from "./objects/Position";
 
 
 
-	this.paintContext = this.paintCanvas.getContext('2d');
-  }
-
-	updateDimensions() {
-
-    }
-
-
-  componentDidUpdate() {
-
-	if(this.state.appModel.getClearState()){
-		this.clearAll();
-	}
+module.exports = {
+	Canvas: Canvas,
+	CanvasCore: CanvasCore,
+	Circle: Circle,
+	DrawableObject: DrawableObject,
+	GradientLine: GradientLine,
+	Line: Line,
+	Position: Position
 
 
-	this.context.clearRect(0, 0, this.w, this.h);
-	for (var obj of this.state.appModel.getDrawables()){
-		this.myDraw(obj);
-	}
-
-	this.context.restore();
-
-
-
-		for (var obj of this.state.appModel.getPaintQueue()){
-		this.myPaint(obj);
-	}
-  }
-
-		myPaint(object) {
-			object.draw(this.paintContext);
-		}
-
-	  myDraw(object) {
-		  object.draw(this.context);
-	  }
-
-
-  clearAll() {
-	  this.context.clearRect(0, 0, this.w, this.h);
-	  this.paintContext.clearRect(0, 0, this.w, this.h);
-  }
-
-
-
-
-  render() {
-    return <div className = "canvas-outer">
-			<div className = "canvas-container">
-
-				Sorry, your browser doesn't support HTML5. :(
-				<canvas className = "paint-canvas" ref = {(canvas) => {this.paintCanvas = canvas} }/>
-				<canvas className = "draw-canvas"  ref = {(canvas) => {this.drawCanvas = canvas} }/>
-			</div></div>
-			;
-  }
 }
-
-export default Canvas;
