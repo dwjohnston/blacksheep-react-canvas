@@ -9812,13 +9812,9 @@ var Canvas = function (_React$Component) {
 
 			if (this.state.canvasCore.getRequiresClear()) {
 
-				console.log("clear");
 				this.clearAll();
 			}
 
-			console.log("update");
-
-			console.log(this.drawContext);
 			this.drawContext.clearRect(0, 0, this.w, this.h);
 			var _iteratorNormalCompletion = true;
 			var _didIteratorError = false;
@@ -9990,7 +9986,7 @@ exports.default = CanvasCore;
 
 
 Object.defineProperty(exports, "__esModule", {
-		value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -9998,36 +9994,31 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Circle = function () {
-		function Circle(size, color, position) {
-				_classCallCheck(this, Circle);
+	function Circle(size, color, position) {
+		_classCallCheck(this, Circle);
 
-				this.size = size;
-				this.color = color;
-				this.position = position;
+		this.size = size;
+		this.color = color;
+		this.position = position;
+	}
+
+	_createClass(Circle, [{
+		key: "draw",
+		value: function draw(context) {
+
+			var sizeX = context.canvas.width;
+			var sizeY = context.canvas.height;
+
+			context.fillStyle = this.color.toString();
+
+			context.beginPath();
+			context.arc(this.position.x * sizeX, this.position.y * sizeY, this.size * (sizeX > sizeY ? sizeY : sizeX), 0, 2 * Math.PI, false);
+			context.closePath();
+			context.fill();
 		}
+	}]);
 
-		_createClass(Circle, [{
-				key: "draw",
-				value: function draw(context) {
-
-						console.log(this);
-
-						var sizeX = context.canvas.width;
-						var sizeY = context.canvas.height;
-
-						console.log(sizeX);
-						console.log("foo");
-
-						context.fillStyle = this.color.toString();
-
-						context.beginPath();
-						context.arc(this.position.x * sizeX, this.position.y * sizeY, this.size * (sizeX > sizeY ? sizeY : sizeX), 0, 2 * Math.PI, false);
-						context.closePath();
-						context.fill();
-				}
-		}]);
-
-		return Circle;
+	return Circle;
 }();
 
 exports.default = Circle;

@@ -39,14 +39,11 @@ class Canvas extends React.Component {
 
 		if(this.state.canvasCore.getRequiresClear()){
 
-			console.log("clear");
 			this.clearAll();
 
 		}
 
-		console.log("update");
 
-		console.log(this.drawContext);
 		this.drawContext.clearRect(0, 0, this.w, this.h);
 		for (var obj of this.state.canvasCore.getDrawQueue()){
 			this.myDraw(obj);
@@ -89,4 +86,4 @@ class Canvas extends React.Component {
 	}
 }
 
-export default Canvas; 
+export default Canvas;

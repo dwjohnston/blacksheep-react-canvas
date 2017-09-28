@@ -10,14 +10,9 @@ class Circle   {
 
 	draw(context){
 
-		console.log(this);
 
 		let sizeX = context.canvas.width;
 		let sizeY = context.canvas.height;
-
-		console.log(sizeX);
-		console.log("foo");
-
 
 		context.fillStyle = this.color.toString();
 
