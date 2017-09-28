@@ -2,6 +2,7 @@
 import Canvas from "./Canvas.jsx";
 import CanvasCore from "./CanvasCore";
 import ColorPoint from "./objects/ColorPoint";
+import Color from './objects/Color';
 import Circle from "./objects/Circle";
 import DrawableObject from "./objects/DrawableObject";
 import GradientLine from "./objects/GradientLine";
@@ -14,6 +15,7 @@ module.exports = {
 	Canvas: Canvas,
 	CanvasCore: CanvasCore,
 	Circle: Circle,
+	Color: Color,
 	DrawableObject: DrawableObject,
 	GradientLine: GradientLine,
 	Line: Line,

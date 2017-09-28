@@ -9990,7 +9990,7 @@ exports.default = CanvasCore;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+		value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -9998,30 +9998,36 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Circle = function () {
-	function Circle(size, color, position) {
-		_classCallCheck(this, Circle);
+		function Circle(size, color, position) {
+				_classCallCheck(this, Circle);
 
-		this.size = size;
-		this.color = color;
-		this.position = position;
-	}
-
-	_createClass(Circle, [{
-		key: "draw",
-		value: function draw(context) {
-
-			console.log(this);
-
-			context.fillStyle = this.color;
-
-			context.beginPath();
-			context.arc(this.position.x, this.position.y, this.size, 0, 2 * Math.PI, false);
-			context.closePath();
-			context.fill();
+				this.size = size;
+				this.color = color;
+				this.position = position;
 		}
-	}]);
 
-	return Circle;
+		_createClass(Circle, [{
+				key: "draw",
+				value: function draw(context) {
+
+						console.log(this);
+
+						var sizeX = context.canvas.width;
+						var sizeY = context.canvas.height;
+
+						console.log(sizeX);
+						console.log("foo");
+
+						context.fillStyle = this.color.toString();
+
+						context.beginPath();
+						context.arc(this.position.x * sizeX, this.position.y * sizeY, this.size * (sizeX > sizeY ? sizeY : sizeX), 0, 2 * Math.PI, false);
+						context.closePath();
+						context.fill();
+				}
+		}]);
+
+		return Circle;
 }();
 
 exports.default = Circle;
@@ -10219,6 +10225,10 @@ var _ColorPoint = __webpack_require__(84);
 
 var _ColorPoint2 = _interopRequireDefault(_ColorPoint);
 
+var _Color = __webpack_require__(197);
+
+var _Color2 = _interopRequireDefault(_Color);
+
 var _Circle = __webpack_require__(83);
 
 var _Circle2 = _interopRequireDefault(_Circle);
@@ -10245,6 +10255,7 @@ module.exports = {
 	Canvas: _Canvas2.default,
 	CanvasCore: _CanvasCore2.default,
 	Circle: _Circle2.default,
+	Color: _Color2.default,
 	DrawableObject: _DrawableObject2.default,
 	GradientLine: _GradientLine2.default,
 	Line: _Line2.default,
@@ -23464,6 +23475,47 @@ module.exports = function (css) {
 /***/ (function(module, exports) {
 
 module.exports = require("react");
+
+/***/ }),
+/* 197 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+  Probably replace this with an existing library
+*/
+
+var Color = function () {
+  function Color(r, g, b, opacity) {
+    _classCallCheck(this, Color);
+
+    this.r = r;
+    this.g = g;
+    this.b = g;
+    this.opacity = opacity;
+  }
+
+  _createClass(Color, [{
+    key: "toString",
+    value: function toString() {
+      return ["rgba(", this.r, ",", this.g, ",", this.b, ",", this.opacity, ")"].join("");
+    }
+  }]);
+
+  return Color;
+}();
+
+exports.default = Color;
 
 /***/ })
 /******/ ]);

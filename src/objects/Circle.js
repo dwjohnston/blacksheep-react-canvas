@@ -12,11 +12,18 @@ class Circle   {
 
 		console.log(this);
 
+		let sizeX = context.canvas.width;
+		let sizeY = context.canvas.height;
 
-		context.fillStyle = this.color;
+		console.log(sizeX);
+		console.log("foo");
+
+
+		context.fillStyle = this.color.toString();
+
 
 		context.beginPath();
-		context.arc(this.position.x, this.position.y, this.size,  0, 2*Math.PI, false);
+		context.arc(this.position.x * sizeX, this.position.y * sizeY, this.size * (sizeX > sizeY ? sizeY:sizeX),  0, 2*Math.PI, false);
 		context.closePath();
 		context.fill();
 	}
