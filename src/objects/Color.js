@@ -8,7 +8,7 @@ class Color {
 	constructor(r, g, b, opacity){
 		this.r = r;
     this.g = g;
-    this.b = g;
+    this.b = b;
     this.opacity = opacity;
 	}
 
