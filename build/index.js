@@ -10317,6 +10317,10 @@ var _Rect = __webpack_require__(198);
 
 var _Rect2 = _interopRequireDefault(_Rect);
 
+var _ClearAll = __webpack_require__(200);
+
+var _ClearAll2 = _interopRequireDefault(_ClearAll);
+
 var _DrawableObject = __webpack_require__(86);
 
 var _DrawableObject2 = _interopRequireDefault(_DrawableObject);
@@ -10345,7 +10349,8 @@ module.exports = {
 	GradientLine: _GradientLine2.default,
 	Line: _Line2.default,
 	Position: _Position2.default,
-	Rect: _Rect2.default
+	Rect: _Rect2.default,
+	ClearAll: _ClearAll2.default
 
 };
 
@@ -23635,6 +23640,58 @@ module.exports = {
   adjustPosition: adjustPosition
 
 };
+
+/***/ }),
+/* 200 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Rect = __webpack_require__(198);
+
+var _Rect2 = _interopRequireDefault(_Rect);
+
+var _Color = __webpack_require__(84);
+
+var _Color2 = _interopRequireDefault(_Color);
+
+var _Position = __webpack_require__(89);
+
+var _Position2 = _interopRequireDefault(_Position);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+  A simple object to pass through to completely clear the canvas
+*/
+
+var ClearAll = function () {
+  function ClearAll() {
+    _classCallCheck(this, ClearAll);
+  }
+
+  _createClass(ClearAll, [{
+    key: "draw",
+    value: function draw(context) {
+
+      //hardcoded black for now
+      new _Rect2.default(1, new _Color2.default(0, 0, 0, 1), new _Position2.default(0, 0)).draw(context);
+    }
+  }]);
+
+  return ClearAll;
+}();
+
+exports.default = ClearAll;
 
 /***/ })
 /******/ ]);

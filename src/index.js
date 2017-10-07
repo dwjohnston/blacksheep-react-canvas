@@ -5,6 +5,7 @@ import ColorPoint from "./objects/ColorPoint";
 import Color from './objects/Color';
 import Circle from "./objects/Circle";
 import Rect from "./objects/Rect";
+import ClearAll from "./objects/ClearAll";
 
 import DrawableObject from "./objects/DrawableObject";
 import GradientLine from "./objects/GradientLine";
@@ -18,12 +19,13 @@ module.exports = {
 	CanvasCore: CanvasCore,
 	Circle: Circle,
 	Color: Color,
-	ColorPoint: ColorPoint, 
+	ColorPoint: ColorPoint,
 	DrawableObject: DrawableObject,
 	GradientLine: GradientLine,
 	Line: Line,
 	Position: Position,
-	Rect: Rect
+	Rect: Rect,
+	ClearAll: ClearAll,
 
 
 }
