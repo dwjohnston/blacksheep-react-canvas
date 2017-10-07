@@ -56,6 +56,8 @@ class Canvas extends React.Component {
 		for (var obj of this.state.canvasCore.getPaintQueue()){
 			this.myPaint(obj);
 
+			
+
 		}
 	}
 

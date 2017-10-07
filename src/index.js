@@ -4,6 +4,8 @@ import CanvasCore from "./CanvasCore";
 import ColorPoint from "./objects/ColorPoint";
 import Color from './objects/Color';
 import Circle from "./objects/Circle";
+import Rect from "./objects/Rect";
+
 import DrawableObject from "./objects/DrawableObject";
 import GradientLine from "./objects/GradientLine";
 import Line from "./objects/Line";
@@ -16,10 +18,12 @@ module.exports = {
 	CanvasCore: CanvasCore,
 	Circle: Circle,
 	Color: Color,
+	ColorPoint: ColorPoint, 
 	DrawableObject: DrawableObject,
 	GradientLine: GradientLine,
 	Line: Line,
-	Position: Position
+	Position: Position,
+	Rect: Rect
 
 
 }

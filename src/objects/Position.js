@@ -5,8 +5,6 @@ class Position {
 		this.y = y;
 	}
 
-
-
 }
 
 
