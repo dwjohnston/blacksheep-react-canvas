@@ -56,17 +56,24 @@ class Canvas extends React.Component {
 		for (var obj of this.state.canvasCore.getPaintQueue()){
 			this.myPaint(obj);
 
-			
+
 
 		}
 	}
 
 	myPaint(object) {
-		object.draw(this.paintContext);
+
+		if (object){
+			object.draw(this.paintContext);
+
+		}
 	}
 
 	myDraw(object) {
-		object.draw(this.drawContext);
+
+		if (object){
+			object.draw(this.drawContext);
+		}
 	}
 
 
