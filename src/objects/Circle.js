@@ -1,3 +1,6 @@
+import {adjustPosition} from "../util/adjust";
+
+
 class Circle   {
 
 	constructor(size, color, position){
@@ -11,16 +14,30 @@ class Circle   {
 	draw(context){
 
 
-		let sizeX = context.canvas.width;
-		let sizeY = context.canvas.height;
 
 		context.fillStyle = this.color.toString();
 
 
+
+
 		context.beginPath();
-		context.arc(this.position.x * sizeX, this.position.y * sizeY, this.size * (sizeX > sizeY ? sizeY:sizeX),  0, 2*Math.PI, false);
+		this.place(context);
 		context.closePath();
 		context.fill();
+	}
+
+	place(context) {
+
+		let sizeX = context.canvas.width;
+		let sizeY = context.canvas.height;
+
+
+		let p = adjustPosition(context, this.position);
+
+
+		context.moveTo(p.x,p.y);
+		context.arc(p.x, p.y, this.size * (sizeX > sizeY ? sizeY:sizeX),  0, 2*Math.PI, false);
+
 	}
 
 }

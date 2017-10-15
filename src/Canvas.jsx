@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 require("./style.scss");
 
+import Color from "./objects/Color";
+
 class Canvas extends React.Component {
 
 
@@ -11,7 +13,7 @@ class Canvas extends React.Component {
 
 	resize() {
 
-		this.w = this.container.clientHeight;
+		this.w = this.container.clientWidth;
 		this.h =  this.container.clientHeight
 
 		this.drawCanvas.width = this.w;
@@ -32,47 +34,77 @@ class Canvas extends React.Component {
 
 
 		this.paintContext = this.paintCanvas.getContext('2d');
+
+
+		console.log("mount");
+		window.requestAnimationFrame(() => {
+			this.drawAnimationFrame();
+		});
+
+	}
+
+
+	drawAnimationFrame() {
+
+		if(this.state.canvasCore.getRequiresClear()){
+			this.clearAll();
+		}
+
+		// this.drawContext.clearRect(0, 0, this.w, this.h);
+		//
+		//
+		// for (var obj of this.state.canvasCore.getDrawQueue()){
+		// 	//	this.myDraw(obj);
+		// }
+		//
+		// this.drawContext.restore();
+
+		let q = this.state.canvasCore.getPaintQueue();
+
+		if( q.length > 0) {
+
+			let newCanvas = document.createElement("canvas");
+			newCanvas.width = this.w;
+			newCanvas.height = this.h;
+			let newContext = newCanvas.getContext('2d');
+
+
+			for (var obj of q){
+				obj.draw(newContext);
+
+			}
+
+			this.paintContext.drawImage(newCanvas,0,0);
+
+		}
+
+
+
+		window.requestAnimationFrame(() => {
+			this.drawAnimationFrame();
+		});
+
 	}
 
 
 	componentDidUpdate() {
 
-		if(this.state.canvasCore.getRequiresClear()){
+	}
 
-			this.clearAll();
-
-		}
-
-
-		this.drawContext.clearRect(0, 0, this.w, this.h);
-		for (var obj of this.state.canvasCore.getDrawQueue()){
-			this.myDraw(obj);
-		}
-
-		this.drawContext.restore();
+	myPaint(object, canvas = this.paintContext) {
 
 
 
-		for (var obj of this.state.canvasCore.getPaintQueue()){
-			this.myPaint(obj);
-
-
-
+		if (object){
+			//object.draw(canvas);
+			object.place(canvas);
 		}
 	}
 
-	myPaint(object) {
+	myDraw(object, canvas = this.drawContext) {
 
 		if (object){
-			object.draw(this.paintContext);
-
-		}
-	}
-
-	myDraw(object) {
-
-		if (object){
-			object.draw(this.drawContext);
+			object.draw(canvas);
 		}
 	}
 

@@ -5,6 +5,8 @@ import ColorPoint from "./objects/ColorPoint";
 import Color from './objects/Color';
 import Circle from "./objects/Circle";
 import Rect from "./objects/Rect";
+import Batch from "./objects/Batch";
+
 import ClearAll from "./objects/ClearAll";
 
 import DrawableObject from "./objects/DrawableObject";
@@ -26,6 +28,7 @@ module.exports = {
 	Position: Position,
 	Rect: Rect,
 	ClearAll: ClearAll,
+	Batch, Batch
 
 
 }

@@ -1,17 +1,43 @@
+
+/**this here is just a empty non-used object for now.
+
+This is mean to be a way of enforcing static typing.
+
+You can use this as hints for how to use the other objects
+
+
+*/
+
+
+
 class DrawableObject   {
 
 	constructor(color){
 		this.color = color;
 	}
 
+
+	/**
+		A complete standalone draw of the object. Bad performance.
+	*/
 	draw(context){
 
-		context.fillStyle = this.color;
+		//define the fill style, etc.
 
-		context.beginPath();
-		context.arc(this.position.x, this.position.y, this.size,  0, 2*Math.PI, false);
-		context.closePath();
-		context.fill();
+		this.place(context);
+
+
+		// End path etc.
+
+	}
+
+	/**
+		Place the object on a canvas for batch rendering.
+
+		Anything that is batch rendered will have to be the same color; 
+	*/
+	place (context) {
+
 	}
 
 }
