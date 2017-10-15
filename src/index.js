@@ -13,6 +13,7 @@ import DrawableObject from "./objects/DrawableObject";
 import GradientLine from "./objects/GradientLine";
 import Line from "./objects/Line";
 import Position from "./objects/Position";
+import CanvasLayer from "./CanvasLayer";
 
 
 
@@ -28,7 +29,8 @@ module.exports = {
 	Position: Position,
 	Rect: Rect,
 	ClearAll: ClearAll,
-	Batch, Batch
+	Batch, Batch,
+	CanvasLayer: CanvasLayer
 
 
 }

@@ -9903,7 +9903,28 @@ var Canvas = function (_React$Component) {
 	_createClass(Canvas, [{
 		key: 'componentWillMount',
 		value: function componentWillMount() {
+			var _this2 = this;
+
 			this.setState({ canvasCore: this.props.canvasCore });
+
+			this.layers = [];
+			this.refLayers = {};
+
+			var _loop = function _loop(i) {
+				_this2.layers.push(_react2.default.createElement('canvas', { className: 'blacksheep-canvas', key: "canvas-layer-" + i, ref: function ref(canvas) {
+						console.log(_this2);
+						console.log(canvas);
+						_this2.refLayers[i] = canvas;
+						//this.layers[i] = canvas
+					} })); //}
+			};
+
+			for (var i in this.props.layers) {
+				_loop(i);
+			}
+
+			console.log(this.layers);
+			console.log(this.refLayers);
 		}
 	}, {
 		key: 'resize',
@@ -9912,33 +9933,50 @@ var Canvas = function (_React$Component) {
 			this.w = this.container.clientWidth;
 			this.h = this.container.clientHeight;
 
-			this.drawCanvas.width = this.w;
-			this.paintCanvas.width = this.w;
-			this.drawCanvas.height = this.h;
-			this.paintCanvas.height = this.h;
+			for (var i in this.layers) {
+
+				this.refLayers[i].width = this.w;
+				this.refLayers[i].height = this.h;
+			}
+			//
+			// this.drawCanvas.width = this.w;
+			// this.paintCanvas.width = this.w;
+			// this.drawCanvas.height = this.h;
+			// this.paintCanvas.height = this.h;
 		}
 	}, {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			var _this2 = this;
+			var _this3 = this;
+
+			console.log("mount");
 
 			this.resize();
 			//this.context = ReactDOM.findDOMNode(this).getContext('2d');
 
-			this.drawContext = this.drawCanvas.getContext('2d');
-			this.drawContext.globalAlpha = 1;
+			this.contexts = [];
+			for (var i in this.layers) {
+				console.log(i);
+				var canvas = this.refLayers[i];
+				this.contexts.push(canvas.getContext("2d"));
+			}
+			//
+			// this.drawContext = this.drawCanvas.getContext('2d');
+			// this.drawContext.globalAlpha = 1;
+			//
+			//
+			//
+			// this.paintContext = this.paintCanvas.getContext('2d');
 
-			this.paintContext = this.paintCanvas.getContext('2d');
 
-			console.log("mount");
 			window.requestAnimationFrame(function () {
-				_this2.drawAnimationFrame();
+				_this3.drawAnimationFrame();
 			});
 		}
 	}, {
 		key: 'drawAnimationFrame',
 		value: function drawAnimationFrame() {
-			var _this3 = this;
+			var _this4 = this;
 
 			if (this.state.canvasCore.getRequiresClear()) {
 				this.clearAll();
@@ -9987,11 +10025,11 @@ var Canvas = function (_React$Component) {
 					}
 				}
 
-				this.paintContext.drawImage(newCanvas, 0, 0);
+				this.contexts[0].drawImage(newCanvas, 0, 0);
 			}
 
 			window.requestAnimationFrame(function () {
-				_this3.drawAnimationFrame();
+				_this4.drawAnimationFrame();
 			});
 		}
 	}, {
@@ -10000,7 +10038,7 @@ var Canvas = function (_React$Component) {
 	}, {
 		key: 'myPaint',
 		value: function myPaint(object) {
-			var canvas = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.paintContext;
+			var canvas = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.contexts[0];
 
 
 			if (object) {
@@ -10009,38 +10047,48 @@ var Canvas = function (_React$Component) {
 			}
 		}
 	}, {
-		key: 'myDraw',
-		value: function myDraw(object) {
-			var canvas = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.drawContext;
-
-
-			if (object) {
-				object.draw(canvas);
-			}
-		}
-	}, {
 		key: 'clearAll',
 		value: function clearAll() {
+			var _iteratorNormalCompletion2 = true;
+			var _didIteratorError2 = false;
+			var _iteratorError2 = undefined;
 
-			this.drawContext.clearRect(0, 0, this.w, this.h);
-			this.paintContext.clearRect(0, 0, this.w, this.h);
+			try {
+
+				for (var _iterator2 = this.contexts[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+					var context = _step2.value;
+
+					context.clearRect(0, 0, this.w, this.h);
+				}
+				//
+				// this.drawContext.clearRect(0, 0, this.w, this.h);
+				// this.paintContext.clearRect(0, 0, this.w, this.h);
+			} catch (err) {
+				_didIteratorError2 = true;
+				_iteratorError2 = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion2 && _iterator2.return) {
+						_iterator2.return();
+					}
+				} finally {
+					if (_didIteratorError2) {
+						throw _iteratorError2;
+					}
+				}
+			}
 		}
 	}, {
 		key: 'render',
 		value: function render() {
-			var _this4 = this;
+			var _this5 = this;
 
 			return _react2.default.createElement(
 				'div',
 				{ className: 'Canvas canvas-container', id: this.props.id, ref: function ref(div) {
-						_this4.container = div;
+						_this5.container = div;
 					} },
-				_react2.default.createElement('canvas', { className: 'paint-canvas', ref: function ref(canvas) {
-						_this4.paintCanvas = canvas;
-					} }),
-				_react2.default.createElement('canvas', { className: 'draw-canvas', ref: function ref(canvas) {
-						_this4.drawCanvas = canvas;
-					} })
+				this.layers
 			);
 		}
 	}]);
@@ -10456,6 +10504,8 @@ exports.default = Line;
 "use strict";
 
 
+var _module$exports;
+
 var _Canvas = __webpack_require__(84);
 
 var _Canvas2 = _interopRequireDefault(_Canvas);
@@ -10504,11 +10554,15 @@ var _Position = __webpack_require__(33);
 
 var _Position2 = _interopRequireDefault(_Position);
 
+var _CanvasLayer = __webpack_require__(202);
+
+var _CanvasLayer2 = _interopRequireDefault(_CanvasLayer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-module.exports = _defineProperty({
+module.exports = (_module$exports = {
 	Canvas: _Canvas2.default,
 	CanvasCore: _CanvasCore2.default,
 	Circle: _Circle2.default,
@@ -10520,7 +10574,7 @@ module.exports = _defineProperty({
 	Position: _Position2.default,
 	Rect: _Rect2.default,
 	ClearAll: _ClearAll2.default,
-	Batch: _Batch2.default }, "Batch", _Batch2.default);
+	Batch: _Batch2.default }, _defineProperty(_module$exports, "Batch", _Batch2.default), _defineProperty(_module$exports, "CanvasLayer", _CanvasLayer2.default), _module$exports);
 
 /***/ }),
 /* 93 */
@@ -11443,7 +11497,7 @@ exports = module.exports = __webpack_require__(96)(undefined);
 
 
 // module
-exports.push([module.i, ".Canvas.canvas-container {\n  display: block;\n  position: relative;\n}\n\n.Canvas canvas.paint-canvas {\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: 0;\n  bottom: 0;\n  z-index: 9;\n  background-color: black;\n}\n\n.Canvas canvas.draw-canvas {\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: 0;\n  bottom: 0;\n  z-index: 10;\n  background-color: transparent;\n}\n", ""]);
+exports.push([module.i, ".Canvas.canvas-container {\n  display: block;\n  position: relative;\n}\n\n.Canvas canvas.blacksheep-canvas {\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: 0;\n  bottom: 0;\n}\n\n.Canvas canvas.paint-canvas {\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: 0;\n  bottom: 0;\n  z-index: 9;\n  background-color: black;\n}\n\n.Canvas canvas.draw-canvas {\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: 0;\n  bottom: 0;\n  z-index: 10;\n  background-color: transparent;\n}\n", ""]);
 
 // exports
 
@@ -23857,6 +23911,37 @@ var Batch = function () {
 }();
 
 exports.default = Batch;
+
+/***/ }),
+/* 202 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Color = __webpack_require__(32);
+
+var _Color2 = _interopRequireDefault(_Color);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var CanvasLayer = function CanvasLayer() {
+  var backgroundColor = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new _Color2.default(0, 0, 0, 1);
+  var degradeLayer = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new _Color2.default(0, 0, 0, 0);
+
+  _classCallCheck(this, CanvasLayer);
+
+  this.backgroundColor = backgroundColor;
+  this.degradeLayer = degradeLayer;
+};
+
+exports.default = CanvasLayer;
 
 /***/ })
 /******/ ]);
