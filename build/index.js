@@ -10008,7 +10008,10 @@ var Canvas = function (_React$Component) {
 					for (var _iterator = q[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 						var obj = _step.value;
 
-						obj.draw(newContext);
+
+						if (obj) {
+							obj.draw(newContext);
+						}
 					}
 				} catch (err) {
 					_didIteratorError = true;

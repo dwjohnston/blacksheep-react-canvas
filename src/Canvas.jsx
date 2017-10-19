@@ -104,7 +104,10 @@ class Canvas extends React.Component {
 
 
 			for (var obj of q){
-				obj.draw(newContext);
+
+				if (obj) {
+					obj.draw(newContext);
+				}
 
 			}
 
