@@ -3,11 +3,13 @@ import {adjustPosition} from "../util/adjust";
 
 class Circle   {
 
-	constructor(size, color, position){
+	constructor(size, color, position, solid = true){
 
 		this.size = size;
 		this.color = color;
 		this.position = position;
+
+		this.solid = solid;
 
 	}
 
@@ -15,7 +17,13 @@ class Circle   {
 
 
 
-		context.fillStyle = this.color.toString();
+		if (this.solid) {
+			context.fillStyle = this.color.toString();
+		}
+		else {
+			context.strokeStyle = this.color.toString();
+		}
+
 
 
 
@@ -23,7 +31,15 @@ class Circle   {
 		context.beginPath();
 		this.place(context);
 		context.closePath();
-		context.fill();
+
+		if (this.solid) {
+			context.fill();
+
+		}
+
+		else {
+			context.stroke();
+		}
 	}
 
 	place(context) {

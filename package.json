@@ -9,6 +9,7 @@
   "dependencies": {
     "react": "^15.5.4",
     "react-dom": "^15.0.0",
+    "react-resize-aware": "^2.7.0",
     "webpack": "^2.6.1"
   },
   "scripts": {

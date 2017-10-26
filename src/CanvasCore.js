@@ -15,65 +15,71 @@ class CanvasCore {
 
 	*/
 
-	constructor(paintBgColor="#000000", paintBgDegradeRate=0) {
+	constructor(paintBgColor="#000000", paintBgDegradeRate=0, layers=1) {
 
-		this.paintQueue = [];
-		this.drawQueue = [];
+
+		this.layers = layers;
 
 		this.requiresClear = false;
 
 		this.paintBgColor = paintBgColor;	//OK COLOR DOESN'T WORK, CBF DOING THIS FOR NOW
 		this.paintBgDegradeRate = paintBgDegradeRate;
 
+		this.clearQueue();
+
+
 	}
 
-	addDrawable(drawable) {
+	clearQueue() {
+
+		this.paintQueue = {};
+		for (let i = 0; i< this.layers; i++){
+			this.paintQueue[i] = [];
+		}
 
 
-
-		this.draqQueue.push(...drawable);
 	}
 
-	addPaintable(paintable) {
-		this.paintQueue.push(...paintable);
+	addPaintable(drawable) {
+
+
+		this.paintQueue = drawable;
+		//this.draqQueue.push(...drawable);
 	}
 
 	setRequiresClear(bool){
-		if (bool === null || bool === true){
+		if (bool === null || bool === true || bool === undefined){
 			this.requiresClear = true;
 		}
 
+
 		else this.requiresClear = bool;
+
+		console.log("req cle");
+
 	}
 
 	getRequiresClear() {
-		return this.requiresClear;
+		let b =  this.requiresClear;
+
+		this.requiresClear = false; 
+
+		return b;
 	}
 
 
 	getPaintQueue() {
 
-
-
-
 		var temp = this.paintQueue;
-		this.paintQueue = [];
 
-		if (this.paintBgDegradeRate !== 0){
-			this.paintQueue.push(new Rect(1, new Color(0, 0, 0, this.paintBgDegradeRate), new Position(0,0)));
-		}
+		this.clearQueue();
+		//
+		// if (this.paintBgDegradeRate !== 0){
+		// 	//this.paintQueue.push(new Rect(1, new Color(0, 0, 0, this.paintBgDegradeRate), new Position(0,0)));
+		// }
 
 		return temp;
 	}
-
-	getDrawQueue() {
-		var temp = this.drawQueue;
-		this.drawQueue = [];
-		return temp;
-	}
-
-
-
 
 }
 

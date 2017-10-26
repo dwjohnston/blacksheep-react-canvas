@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-require("./style.scss");
+import "./style.scss";
+
+import ResizeAware from 'react-resize-aware';
+
 
 import Color from "./objects/Color";
+import ClearAll from "./objects/ClearAll";
 
 class Canvas extends React.Component {
 
@@ -14,9 +18,8 @@ class Canvas extends React.Component {
 		this.layers = [];
 		this.refLayers = {}
 		for (let i in this.props.layers){
-				this.layers.push(			<canvas className = "blacksheep-canvas" key ={"canvas-layer-"+i} ref = {(canvas) => {
-				console.log(this);
-				console.log(canvas);
+			this.layers.push(			<canvas className = "blacksheep-canvas" key ={"canvas-layer-"+i} ref = {(canvas) => {
+
 				this.refLayers[i] = canvas;
 				//this.layers[i] = canvas
 			}}  />); //}
@@ -32,6 +35,9 @@ class Canvas extends React.Component {
 
 	resize() {
 
+		console.log("resize");
+
+		console.log(this);
 		this.w = this.container.clientWidth;
 		this.h =  this.container.clientHeight;
 
@@ -93,27 +99,43 @@ class Canvas extends React.Component {
 		//
 		// this.drawContext.restore();
 
-		let q = this.state.canvasCore.getPaintQueue();
+		let pq = this.state.canvasCore.getPaintQueue();
+		for (let key in pq){
 
-		if( q.length > 0) {
+			let q = pq[key];
 
-			let newCanvas = document.createElement("canvas");
-			newCanvas.width = this.w;
-			newCanvas.height = this.h;
-			let newContext = newCanvas.getContext('2d');
+			if( q.length > 0) {
+
+				let newCanvas = document.createElement("canvas");
+				newCanvas.width = this.w;
+				newCanvas.height = this.h;
+				let newContext = newCanvas.getContext('2d');
 
 
-			for (var obj of q){
 
-				if (obj) {
-					obj.draw(newContext);
+				for (var obj of q){
+
+					if (obj) {
+						obj.draw(newContext);
+					}
+
 				}
+
+
+				let degrade = this.props.layers[key].degradeLayer;
+
+
+
+
+				new ClearAll(degrade).draw(this.contexts[key]);
+				this.contexts[key].drawImage(newCanvas,0,0);
 
 			}
 
-			this.contexts[0].drawImage(newCanvas,0,0);
+
 
 		}
+
 
 
 
@@ -142,6 +164,9 @@ class Canvas extends React.Component {
 
 	clearAll() {
 
+
+		console.log("clear");
+
 		for (let context of this.contexts) {
 			context.clearRect(0,0, this.w, this.h);
 		}
@@ -155,14 +180,17 @@ class Canvas extends React.Component {
 
 	render() {
 
-		return <div className = "Canvas canvas-container" id = {this.props.id} ref = {(div) => {this.container = div}}>
-			 {/*<canvas className = "paint-canvas" ref = {(canvas) => {this.paintCanvas = canvas} }/>
-			 <canvas className = "draw-canvas"  ref = {(canvas) => {this.drawCanvas = canvas} }/>*/}
+		return	<div className = "Canvas canvas-container" id = {this.props.id} ref = {(div) => {this.container = div}}>
+			<ResizeAware style={{ position: 'absolute', width: "100%", height: "100%"}}
+				onResize = {() => {
+					this.resize();
+				}}
+				>
+				{this.layers}
+			</ResizeAware>
 
-			{this.layers}
 
-		</div>
-		;
+		</div>	;
 	}
 }
 
