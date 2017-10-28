@@ -26,40 +26,24 @@ class Canvas extends React.Component {
 
 		}
 
-
-		console.log(this.layers);
-		console.log(this.refLayers);
-
-
 	}
 
 	resize() {
 
-		console.log("resize");
-
-		console.log(this);
 		this.w = this.container.clientWidth;
 		this.h =  this.container.clientHeight;
-
 
 		for (let i in this.layers) {
 
 			this.refLayers[i].width = this.w;
 			this.refLayers[i].height = this.h;
 		}
-		//
-		// this.drawCanvas.width = this.w;
-		// this.paintCanvas.width = this.w;
-		// this.drawCanvas.height = this.h;
-		// this.paintCanvas.height = this.h;
 
 	}
 
 	componentDidMount() {
-		console.log("mount");
 
 		this.resize();
-		//this.context = ReactDOM.findDOMNode(this).getContext('2d');
 
 		this.contexts = [];
 		for (let i in this.layers) {
@@ -68,14 +52,6 @@ class Canvas extends React.Component {
 			this.contexts.push(canvas.getContext("2d"));
 
 		}
-		//
-		// this.drawContext = this.drawCanvas.getContext('2d');
-		// this.drawContext.globalAlpha = 1;
-		//
-		//
-		//
-		// this.paintContext = this.paintCanvas.getContext('2d');
-
 
 		window.requestAnimationFrame(() => {
 			this.drawAnimationFrame();
@@ -86,20 +62,16 @@ class Canvas extends React.Component {
 
 	drawAnimationFrame() {
 
+
+		console.log("draw animation frame");
 		if(this.state.canvasCore.getRequiresClear()){
 			this.clearAll();
 		}
 
-		// this.drawContext.clearRect(0, 0, this.w, this.h);
-		//
-		//
-		// for (var obj of this.state.canvasCore.getDrawQueue()){
-		// 	//	this.myDraw(obj);
-		// }
-		//
-		// this.drawContext.restore();
-
 		let pq = this.state.canvasCore.getPaintQueue();
+
+		console.log(pq);
+
 		for (let key in pq){
 
 			let q = pq[key];
@@ -131,13 +103,7 @@ class Canvas extends React.Component {
 				this.contexts[key].drawImage(newCanvas,0,0);
 
 			}
-
-
-
 		}
-
-
-
 
 		window.requestAnimationFrame(() => {
 			this.drawAnimationFrame();
@@ -151,8 +117,6 @@ class Canvas extends React.Component {
 	}
 
 	myPaint(object, canvas =  this.contexts[0]) {
-
-
 
 		if (object){
 			//object.draw(canvas);

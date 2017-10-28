@@ -15,6 +15,12 @@ class CanvasCore {
 
 	*/
 
+
+/**
+	We're not going to have a background color or degrade rate or whatever defined here.
+
+	Let the algorithm handle that.
+*/
 	constructor(paintBgColor="#000000", paintBgDegradeRate=0, layers=1) {
 
 
@@ -29,6 +35,20 @@ class CanvasCore {
 
 
 	}
+
+
+	setDrawingSource(source) {
+		this.drawingSource = source;
+	}
+
+	stopDraw() {
+
+	}
+
+	startDraw() {
+
+	}
+
 
 	clearQueue() {
 
@@ -55,30 +75,38 @@ class CanvasCore {
 
 		else this.requiresClear = bool;
 
-		console.log("req cle");
+		console.log("reqasd cle");
 
 	}
 
 	getRequiresClear() {
 		let b =  this.requiresClear;
 
-		this.requiresClear = false; 
+		this.requiresClear = false;
 
 		return b;
 	}
 
 
 	getPaintQueue() {
+		if(this.drawingSource !== undefined){
 
-		var temp = this.paintQueue;
+			console.log(this.drawingSource);
+			return this.drawingSource.tick();
 
-		this.clearQueue();
+
+		}
+
+
+		// var temp = this.paintQueue;
 		//
-		// if (this.paintBgDegradeRate !== 0){
-		// 	//this.paintQueue.push(new Rect(1, new Color(0, 0, 0, this.paintBgDegradeRate), new Position(0,0)));
-		// }
-
-		return temp;
+		// this.clearQueue();
+		// //
+		// // if (this.paintBgDegradeRate !== 0){
+		// // 	//this.paintQueue.push(new Rect(1, new Color(0, 0, 0, this.paintBgDegradeRate), new Position(0,0)));
+		// // }
+		//
+		// return temp;
 	}
 
 }
