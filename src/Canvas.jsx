@@ -47,7 +47,6 @@ class Canvas extends React.Component {
 
 		this.contexts = [];
 		for (let i in this.layers) {
-			console.log(i);
 			let canvas = this.refLayers[i];
 			this.contexts.push(canvas.getContext("2d"));
 
@@ -63,14 +62,12 @@ class Canvas extends React.Component {
 	drawAnimationFrame() {
 
 
-		console.log("draw animation frame");
 		if(this.state.canvasCore.getRequiresClear()){
 			this.clearAll();
 		}
 
 		let pq = this.state.canvasCore.getPaintQueue();
 
-		console.log(pq);
 
 		for (let key in pq){
 
@@ -129,7 +126,6 @@ class Canvas extends React.Component {
 	clearAll() {
 
 
-		console.log("clear");
 
 		for (let context of this.contexts) {
 			context.clearRect(0,0, this.w, this.h);

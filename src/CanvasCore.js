@@ -75,7 +75,6 @@ class CanvasCore {
 
 		else this.requiresClear = bool;
 
-		console.log("reqasd cle");
 
 	}
 
@@ -91,7 +90,6 @@ class CanvasCore {
 	getPaintQueue() {
 		if(this.drawingSource !== undefined){
 
-			console.log(this.drawingSource);
 			return this.drawingSource.tick();
 
 

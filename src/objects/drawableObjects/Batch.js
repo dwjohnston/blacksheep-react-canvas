@@ -10,10 +10,12 @@ class Batch extends DrawableObject {
 
 
 
-  constructor(list = [], color = new Color(200,200,200,0.5)) {
+  constructor(list = [], color = new Color(200,200,200,0.5), lineWidth = 3) {
     super();
     this.list = list;
     this.color = color;
+
+    this.lineWidth=3;
   }
 
 
@@ -24,12 +26,18 @@ class Batch extends DrawableObject {
   draw(context) {
 
     context.fillStyle = this.color.toString();
+    context.strokeStyle = this.color.toString();
+
+    context.lineWidth = this.lineWidth;
+
+
     context.beginPath();
 
     this.place(context);
 
     context.closePath();
     context.fill();
+    context.stroke();
 
   }
 

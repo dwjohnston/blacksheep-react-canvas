@@ -30,7 +30,9 @@ class Circle  extends DrawableObject {
 
 
 		context.beginPath();
+
 		this.place(context);
+
 		context.closePath();
 
 		if (this.solid) {
@@ -50,7 +52,7 @@ class Circle  extends DrawableObject {
 		let s = adjustSize(context, this.size);
 
 
-		context.moveTo(p.x,p.y);
+		context.moveTo(p.x + s.x,p.y);
 		context.ellipse(p.x, p.y, s.x, s.y, 0, 0, 2*Math.PI, false);
 
 	}

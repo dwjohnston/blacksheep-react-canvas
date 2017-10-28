@@ -6,10 +6,12 @@ class GradientLine extends DrawableObject {
 
 
 
-	constructor(cp1, cp2) {
+	constructor(cp1, cp2, size = 1) {
 		super();
 		this.cp1 = cp1;
 		this.cp2= cp2;
+
+		this.size = size;
 
 		this.color = '#fff';
 	}
@@ -26,7 +28,7 @@ class GradientLine extends DrawableObject {
 		gradient.addColorStop(0, this.cp1.color.toString());
 		gradient.addColorStop(1, this.cp2.color.toString());
 		context.strokeStyle = gradient;
-		context.lineWidth = 3;
+		context.lineWidth = this.size;
 
 		context.beginPath();
 		context.moveTo(p1.x, p1.y);

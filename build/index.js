@@ -9958,7 +9958,6 @@ var Canvas = function (_React$Component) {
 
 			this.contexts = [];
 			for (var i in this.layers) {
-				console.log(i);
 				var canvas = this.refLayers[i];
 				this.contexts.push(canvas.getContext("2d"));
 			}
@@ -9972,14 +9971,11 @@ var Canvas = function (_React$Component) {
 		value: function drawAnimationFrame() {
 			var _this4 = this;
 
-			console.log("draw animation frame");
 			if (this.state.canvasCore.getRequiresClear()) {
 				this.clearAll();
 			}
 
 			var pq = this.state.canvasCore.getPaintQueue();
-
-			console.log(pq);
 
 			for (var key in pq) {
 
@@ -10048,14 +10044,12 @@ var Canvas = function (_React$Component) {
 	}, {
 		key: 'clearAll',
 		value: function clearAll() {
-
-			console.log("clear");
-
 			var _iteratorNormalCompletion2 = true;
 			var _didIteratorError2 = false;
 			var _iteratorError2 = undefined;
 
 			try {
+
 				for (var _iterator2 = this.contexts[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
 					var context = _step2.value;
 
@@ -10202,8 +10196,6 @@ var CanvasCore = function () {
 			if (bool === null || bool === true || bool === undefined) {
 				this.requiresClear = true;
 			} else this.requiresClear = bool;
-
-			console.log("reqasd cle");
 		}
 	}, {
 		key: "getRequiresClear",
@@ -10219,7 +10211,6 @@ var CanvasCore = function () {
 		value: function getPaintQueue() {
 			if (this.drawingSource !== undefined) {
 
-				console.log(this.drawingSource);
 				return this.drawingSource.tick();
 			}
 
@@ -23826,7 +23817,6 @@ var ClearAll = function (_DrawableObject) {
 
       //hardcoded black for now
       if (this.color === true) {
-        console.log(this.color);
         var max = (0, _adjust.adjustPosition)(context, new _Position2.default(1, 1));
         context.clearRect(0, 0, max.x, max.y);
       } else {
@@ -24019,7 +24009,9 @@ var Circle = function (_DrawableObject) {
 			}
 
 			context.beginPath();
+
 			this.place(context);
+
 			context.closePath();
 
 			if (this.solid) {
@@ -24035,7 +24027,7 @@ var Circle = function (_DrawableObject) {
 			var p = (0, _adjust.adjustPosition)(context, this.position);
 			var s = (0, _adjust.adjustSize)(context, this.size);
 
-			context.moveTo(p.x, p.y);
+			context.moveTo(p.x + s.x, p.y);
 			context.ellipse(p.x, p.y, s.x, s.y, 0, 0, 2 * Math.PI, false);
 		}
 	}]);
@@ -24085,6 +24077,7 @@ var Batch = function (_DrawableObject) {
   function Batch() {
     var list = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
     var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new _Color2.default(200, 200, 200, 0.5);
+    var lineWidth = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3;
 
     _classCallCheck(this, Batch);
 
@@ -24092,6 +24085,8 @@ var Batch = function (_DrawableObject) {
 
     _this.list = list;
     _this.color = color;
+
+    _this.lineWidth = 3;
     return _this;
   }
 
@@ -24105,12 +24100,17 @@ var Batch = function (_DrawableObject) {
     value: function draw(context) {
 
       context.fillStyle = this.color.toString();
+      context.strokeStyle = this.color.toString();
+
+      context.lineWidth = this.lineWidth;
+
       context.beginPath();
 
       this.place(context);
 
       context.closePath();
       context.fill();
+      context.stroke();
     }
   }, {
     key: "place",
@@ -24180,12 +24180,16 @@ var GradientLine = function (_DrawableObject) {
 		_inherits(GradientLine, _DrawableObject);
 
 		function GradientLine(cp1, cp2) {
+				var size = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+
 				_classCallCheck(this, GradientLine);
 
 				var _this = _possibleConstructorReturn(this, (GradientLine.__proto__ || Object.getPrototypeOf(GradientLine)).call(this));
 
 				_this.cp1 = cp1;
 				_this.cp2 = cp2;
+
+				_this.size = size;
 
 				_this.color = '#fff';
 				return _this;
@@ -24203,7 +24207,7 @@ var GradientLine = function (_DrawableObject) {
 						gradient.addColorStop(0, this.cp1.color.toString());
 						gradient.addColorStop(1, this.cp2.color.toString());
 						context.strokeStyle = gradient;
-						context.lineWidth = 3;
+						context.lineWidth = this.size;
 
 						context.beginPath();
 						context.moveTo(p1.x, p1.y);
@@ -24234,6 +24238,8 @@ var _DrawableObject2 = __webpack_require__(212);
 
 var _DrawableObject3 = _interopRequireDefault(_DrawableObject2);
 
+var _adjust = __webpack_require__(35);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24243,12 +24249,14 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
-	This one looks like it's likley broken. Remove this message if it's not.
+This one looks like it's likley broken. Remove this message if it's not.
 */
 var Line = function (_DrawableObject) {
 	_inherits(Line, _DrawableObject);
 
 	function Line(p1, p2, color) {
+		var size = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+
 		_classCallCheck(this, Line);
 
 		var _this = _possibleConstructorReturn(this, (Line.__proto__ || Object.getPrototypeOf(Line)).call(this));
@@ -24256,20 +24264,42 @@ var Line = function (_DrawableObject) {
 		_this.p1 = p1;
 		_this.p2 = p2;
 		_this.color = color;
+
+		_this.size = size;
 		return _this;
 	}
 
 	_createClass(Line, [{
+		key: "setupContext",
+		value: function setupContext(context) {
+			context.strokeStyle = this.color.toString();
+			context.lineWidth = this.size;
+			context.beginPath();
+		}
+	}, {
 		key: "draw",
 		value: function draw(context) {
 
-			context.strokeStyle = this.color.toString();
-			context.lineWidth = 3;
+			this.setupContext(context);
 
-			context.beginPath();
-			context.moveTo(this.p1.x, this.p1.y);
-			context.lineTo(this.p2.x, this.p2.y);
+			this.place(context);
+
+			this.finishContext(context);
+		}
+	}, {
+		key: "finishContext",
+		value: function finishContext(context) {
 			context.stroke();
+		}
+	}, {
+		key: "place",
+		value: function place(context) {
+
+			var p1 = (0, _adjust.adjustPosition)(context, this.p1);
+			var p2 = (0, _adjust.adjustPosition)(context, this.p2);
+
+			context.moveTo(p1.x, p1.y);
+			context.lineTo(p2.x, p2.y);
 		}
 	}]);
 
