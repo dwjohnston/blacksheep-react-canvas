@@ -1,10 +1,11 @@
-import {adjustPosition} from "../util/adjust";
+import {adjustPosition, adjustSize} from "../../util/adjust";
+import DrawableObject from "./DrawableObject"
 
 
-class Circle   {
+class Circle  extends DrawableObject {
 
 	constructor(size, color, position, solid = true){
-
+		super();
 		this.size = size;
 		this.color = color;
 		this.position = position;
@@ -44,15 +45,13 @@ class Circle   {
 
 	place(context) {
 
-		let sizeX = context.canvas.width;
-		let sizeY = context.canvas.height;
-
 
 		let p = adjustPosition(context, this.position);
+		let s = adjustSize(context, this.size);
 
 
 		context.moveTo(p.x,p.y);
-		context.arc(p.x, p.y, this.size * (sizeX > sizeY ? sizeY:sizeX),  0, 2*Math.PI, false);
+		context.ellipse(p.x, p.y, s.x, s.y, 0, 0, 2*Math.PI, false);
 
 	}
 

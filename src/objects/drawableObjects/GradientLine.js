@@ -1,11 +1,13 @@
-import {adjustPosition} from "../util/adjust";
+import {adjustPosition} from "../../util/adjust";
 
+import DrawableObject from "./DrawableObject"
 
-class GradientLine {
+class GradientLine extends DrawableObject {
 
 
 
 	constructor(cp1, cp2) {
+		super();
 		this.cp1 = cp1;
 		this.cp2= cp2;
 

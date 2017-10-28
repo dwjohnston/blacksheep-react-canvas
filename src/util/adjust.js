@@ -12,6 +12,13 @@ function adjustY(context, value) {
   return sizeY * value;
 }
 
+var adjustSize = function(context, size) {
+	return {
+		x: adjustX(context, size),
+		y: adjustY(context, size)
+	};
+}
+
 var adjustPosition = function(context, position) {
 
   return {
@@ -22,6 +29,7 @@ var adjustPosition = function(context, position) {
 }
 
 module.exports = {
-  adjustPosition: adjustPosition
+  adjustPosition: adjustPosition,
+	adjustSize: adjustSize, 
 
 }

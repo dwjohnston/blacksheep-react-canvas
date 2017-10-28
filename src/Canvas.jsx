@@ -6,7 +6,7 @@ import ResizeAware from 'react-resize-aware';
 
 
 import Color from "./objects/Color";
-import ClearAll from "./objects/ClearAll";
+import ClearAll from "./objects/drawableObjects/ClearAll";
 
 class Canvas extends React.Component {
 

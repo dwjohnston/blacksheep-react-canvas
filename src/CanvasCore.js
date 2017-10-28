@@ -1,4 +1,4 @@
-import Rect from "./objects/Rect";
+import Rect from "./objects/drawableObjects/Rect";
 import Color from "./objects/Color";
 import Position from "./objects/Position";
 

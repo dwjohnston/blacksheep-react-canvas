@@ -1,7 +1,10 @@
-class Rect   {
+
+import DrawableObject from "./DrawableObject"
+
+class Rect extends DrawableObject  {
 
 	constructor(size, color, position){
-
+		super();
 		this.size = size;
 		this.color = color;
 		this.position = position;

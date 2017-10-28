@@ -4752,48 +4752,7 @@ var Position = function () {
 exports.default = Position;
 
 /***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-		value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Rect = function () {
-		function Rect(size, color, position) {
-				_classCallCheck(this, Rect);
-
-				this.size = size;
-				this.color = color;
-				this.position = position;
-		}
-
-		_createClass(Rect, [{
-				key: "draw",
-				value: function draw(context) {
-
-						var sizeX = context.canvas.width;
-						var sizeY = context.canvas.height;
-
-						context.fillStyle = this.color.toString();
-
-						context.fillRect(this.position.x * sizeX, this.position.y * sizeY, (this.position.x + this.size) * sizeX, (this.position.y + this.size) * sizeY);
-				}
-		}]);
-
-		return Rect;
-}();
-
-exports.default = Rect;
-
-/***/ }),
+/* 34 */,
 /* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4812,6 +4771,13 @@ function adjustY(context, value) {
   return sizeY * value;
 }
 
+var adjustSize = function adjustSize(context, size) {
+  return {
+    x: adjustX(context, size),
+    y: adjustY(context, size)
+  };
+};
+
 var adjustPosition = function adjustPosition(context, position) {
 
   return {
@@ -4821,7 +4787,8 @@ var adjustPosition = function adjustPosition(context, position) {
 };
 
 module.exports = {
-  adjustPosition: adjustPosition
+  adjustPosition: adjustPosition,
+  adjustSize: adjustSize
 
 };
 
@@ -6708,71 +6675,7 @@ module.exports = lowPriorityWarning;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _Rect = __webpack_require__(34);
-
-var _Rect2 = _interopRequireDefault(_Rect);
-
-var _Color = __webpack_require__(16);
-
-var _Color2 = _interopRequireDefault(_Color);
-
-var _Position = __webpack_require__(33);
-
-var _Position2 = _interopRequireDefault(_Position);
-
-var _adjust = __webpack_require__(35);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
-A simple object to pass through to completely clear the canvas
-*/
-
-var ClearAll = function () {
-  function ClearAll() {
-    var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new _Color2.default(0, 0, 0, 1);
-
-    _classCallCheck(this, ClearAll);
-
-    this.color = color;
-  }
-
-  _createClass(ClearAll, [{
-    key: "draw",
-    value: function draw(context) {
-
-      //hardcoded black for now
-      if (this.color === true) {
-        console.log(this.color);
-        var max = (0, _adjust.adjustPosition)(context, new _Position2.default(1, 1));
-        context.clearRect(0, 0, max.x, max.y);
-      } else {
-
-        new _Rect2.default(1, this.color, new _Position2.default(0, 0)).draw(context);
-      }
-    }
-  }]);
-
-  return ClearAll;
-}();
-
-exports.default = ClearAll;
-
-/***/ }),
+/* 53 */,
 /* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9990,7 +9893,7 @@ var _Color = __webpack_require__(16);
 
 var _Color2 = _interopRequireDefault(_Color);
 
-var _ClearAll = __webpack_require__(53);
+var _ClearAll = __webpack_require__(211);
 
 var _ClearAll2 = _interopRequireDefault(_ClearAll);
 
@@ -10217,7 +10120,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Rect = __webpack_require__(34);
+var _Rect = __webpack_require__(213);
 
 var _Rect2 = _interopRequireDefault(_Rect);
 
@@ -10369,166 +10272,8 @@ var CanvasLayer = function CanvasLayer() {
 exports.default = CanvasLayer;
 
 /***/ }),
-/* 90 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /***
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     A container of objects to be rendered in one go.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     All objects will be the same color, but (future state) you can apply a gradient.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     */
-
-
-var _Color = __webpack_require__(16);
-
-var _Color2 = _interopRequireDefault(_Color);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Batch = function () {
-  function Batch() {
-    var list = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-    var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new _Color2.default(200, 200, 200, 0.5);
-
-    _classCallCheck(this, Batch);
-
-    this.list = list;
-    this.color = color;
-  }
-
-  _createClass(Batch, [{
-    key: "add",
-    value: function add(obj) {
-      this.list.push(obj);
-    }
-  }, {
-    key: "draw",
-    value: function draw(context) {
-
-      context.fillStyle = this.color.toString();
-      context.beginPath();
-
-      this.place(context);
-
-      context.closePath();
-      context.fill();
-    }
-  }, {
-    key: "place",
-    value: function place(context) {
-
-      //Assumes everything has a place method.
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = this.list[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var obj = _step.value;
-
-          obj.place(context);
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator.return) {
-            _iterator.return();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-    }
-  }]);
-
-  return Batch;
-}();
-
-exports.default = Batch;
-
-/***/ }),
-/* 91 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _adjust = __webpack_require__(35);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Circle = function () {
-	function Circle(size, color, position) {
-		var solid = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
-
-		_classCallCheck(this, Circle);
-
-		this.size = size;
-		this.color = color;
-		this.position = position;
-
-		this.solid = solid;
-	}
-
-	_createClass(Circle, [{
-		key: "draw",
-		value: function draw(context) {
-
-			if (this.solid) {
-				context.fillStyle = this.color.toString();
-			} else {
-				context.strokeStyle = this.color.toString();
-			}
-
-			context.beginPath();
-			this.place(context);
-			context.closePath();
-
-			if (this.solid) {
-				context.fill();
-			} else {
-				context.stroke();
-			}
-		}
-	}, {
-		key: "place",
-		value: function place(context) {
-
-			var sizeX = context.canvas.width;
-			var sizeY = context.canvas.height;
-
-			var p = (0, _adjust.adjustPosition)(context, this.position);
-
-			context.moveTo(p.x, p.y);
-			context.arc(p.x, p.y, this.size * (sizeX > sizeY ? sizeY : sizeX), 0, 2 * Math.PI, false);
-		}
-	}]);
-
-	return Circle;
-}();
-
-exports.default = Circle;
-
-/***/ }),
+/* 90 */,
+/* 91 */,
 /* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10551,165 +10296,9 @@ var ColorPoint = function ColorPoint(position, color) {
 exports.default = ColorPoint;
 
 /***/ }),
-/* 93 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**this here is just a empty non-used object for now.
-
-This is mean to be a way of enforcing static typing.
-
-You can use this as hints for how to use the other objects
-
-
-*/
-
-var DrawableObject = function () {
-	function DrawableObject(color) {
-		_classCallCheck(this, DrawableObject);
-
-		this.color = color;
-	}
-
-	/**
- 	A complete standalone draw of the object. Bad performance.
- */
-
-
-	_createClass(DrawableObject, [{
-		key: "draw",
-		value: function draw(context) {
-
-			//define the fill style, etc.
-
-			this.place(context);
-
-			// End path etc.
-		}
-
-		/**
-  	Place the object on a canvas for batch rendering.
-  
-  	Anything that is batch rendered will have to be the same color; 
-  */
-
-	}, {
-		key: "place",
-		value: function place(context) {}
-	}]);
-
-	return DrawableObject;
-}();
-
-exports.default = DrawableObject;
-
-/***/ }),
-/* 94 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-		value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _adjust = __webpack_require__(35);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var GradientLine = function () {
-		function GradientLine(cp1, cp2) {
-				_classCallCheck(this, GradientLine);
-
-				this.cp1 = cp1;
-				this.cp2 = cp2;
-
-				this.color = '#fff';
-		}
-
-		_createClass(GradientLine, [{
-				key: "draw",
-				value: function draw(context) {
-
-						var p1 = (0, _adjust.adjustPosition)(context, this.cp1.position);
-						var p2 = (0, _adjust.adjustPosition)(context, this.cp2.position);
-
-						var gradient = context.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
-
-						gradient.addColorStop(0, this.cp1.color.toString());
-						gradient.addColorStop(1, this.cp2.color.toString());
-						context.strokeStyle = gradient;
-						context.lineWidth = 3;
-
-						context.beginPath();
-						context.moveTo(p1.x, p1.y);
-						context.lineTo(p2.x, p2.y);
-						context.stroke();
-				}
-		}]);
-
-		return GradientLine;
-}();
-
-exports.default = GradientLine;
-
-/***/ }),
-/* 95 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Line = function () {
-	function Line(p1, p2, color, opacity) {
-		_classCallCheck(this, Line);
-
-		this.p1 = p1;
-		this.p2 = p2;
-		this.color = color.replace(')', ", " + opacity + ")").replace("rgb", "rgba");
-	}
-
-	_createClass(Line, [{
-		key: "draw",
-		value: function draw(context) {
-
-			context.strokeStyle = this.color;
-			context.lineWidth = 3;
-
-			context.beginPath();
-			context.moveTo(this.p1.x, this.p1.y);
-			context.lineTo(this.p2.x, this.p2.y);
-			context.stroke();
-		}
-	}]);
-
-	return Line;
-}();
-
-exports.default = Line;
-
-/***/ }),
+/* 93 */,
+/* 94 */,
+/* 95 */,
 /* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10726,6 +10315,10 @@ var _CanvasCore = __webpack_require__(88);
 
 var _CanvasCore2 = _interopRequireDefault(_CanvasCore);
 
+var _CanvasLayer = __webpack_require__(89);
+
+var _CanvasLayer2 = _interopRequireDefault(_CanvasLayer);
+
 var _ColorPoint = __webpack_require__(92);
 
 var _ColorPoint2 = _interopRequireDefault(_ColorPoint);
@@ -10734,45 +10327,49 @@ var _Color = __webpack_require__(16);
 
 var _Color2 = _interopRequireDefault(_Color);
 
-var _Circle = __webpack_require__(91);
-
-var _Circle2 = _interopRequireDefault(_Circle);
-
-var _Rect = __webpack_require__(34);
-
-var _Rect2 = _interopRequireDefault(_Rect);
-
-var _Batch = __webpack_require__(90);
-
-var _Batch2 = _interopRequireDefault(_Batch);
-
-var _ClearAll = __webpack_require__(53);
-
-var _ClearAll2 = _interopRequireDefault(_ClearAll);
-
-var _DrawableObject = __webpack_require__(93);
-
-var _DrawableObject2 = _interopRequireDefault(_DrawableObject);
-
-var _GradientLine = __webpack_require__(94);
-
-var _GradientLine2 = _interopRequireDefault(_GradientLine);
-
-var _Line = __webpack_require__(95);
-
-var _Line2 = _interopRequireDefault(_Line);
-
 var _Position = __webpack_require__(33);
 
 var _Position2 = _interopRequireDefault(_Position);
 
-var _CanvasLayer = __webpack_require__(89);
+var _Circle = __webpack_require__(214);
 
-var _CanvasLayer2 = _interopRequireDefault(_CanvasLayer);
+var _Circle2 = _interopRequireDefault(_Circle);
+
+var _Rect = __webpack_require__(213);
+
+var _Rect2 = _interopRequireDefault(_Rect);
+
+var _Batch = __webpack_require__(215);
+
+var _Batch2 = _interopRequireDefault(_Batch);
+
+var _ClearAll = __webpack_require__(211);
+
+var _ClearAll2 = _interopRequireDefault(_ClearAll);
+
+var _DrawableObject = __webpack_require__(212);
+
+var _DrawableObject2 = _interopRequireDefault(_DrawableObject);
+
+var _GradientLine = __webpack_require__(216);
+
+var _GradientLine2 = _interopRequireDefault(_GradientLine);
+
+var _Line = __webpack_require__(217);
+
+var _Line2 = _interopRequireDefault(_Line);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+//Core functionality
+
+
+//Things that make up drawables
+
+
+//Actual drawables
+
 
 module.exports = (_module$exports = {
 	Canvas: _Canvas2.default,
@@ -24158,6 +23755,528 @@ module.exports = function (css) {
 	return fixedCss;
 };
 
+
+/***/ }),
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Rect = __webpack_require__(213);
+
+var _Rect2 = _interopRequireDefault(_Rect);
+
+var _Color = __webpack_require__(16);
+
+var _Color2 = _interopRequireDefault(_Color);
+
+var _Position = __webpack_require__(33);
+
+var _Position2 = _interopRequireDefault(_Position);
+
+var _adjust = __webpack_require__(35);
+
+var _DrawableObject2 = __webpack_require__(212);
+
+var _DrawableObject3 = _interopRequireDefault(_DrawableObject2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+A simple object to pass through to completely clear the canvas
+*/
+
+var ClearAll = function (_DrawableObject) {
+  _inherits(ClearAll, _DrawableObject);
+
+  function ClearAll() {
+    var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new _Color2.default(0, 0, 0, 1);
+
+    _classCallCheck(this, ClearAll);
+
+    var _this = _possibleConstructorReturn(this, (ClearAll.__proto__ || Object.getPrototypeOf(ClearAll)).call(this));
+
+    _this.color = color;
+    return _this;
+  }
+
+  _createClass(ClearAll, [{
+    key: "draw",
+    value: function draw(context) {
+
+      //hardcoded black for now
+      if (this.color === true) {
+        console.log(this.color);
+        var max = (0, _adjust.adjustPosition)(context, new _Position2.default(1, 1));
+        context.clearRect(0, 0, max.x, max.y);
+      } else {
+
+        new _Rect2.default(1, this.color, new _Position2.default(0, 0)).draw(context);
+      }
+    }
+  }]);
+
+  return ClearAll;
+}(_DrawableObject3.default);
+
+exports.default = ClearAll;
+
+/***/ }),
+/* 212 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**this here is just a empty non-used object for now.
+
+This is mean to be a way of enforcing static typing.
+
+You can use this as hints for how to use the other objects
+
+
+*/
+
+var DrawableObject = function () {
+	function DrawableObject() {
+		_classCallCheck(this, DrawableObject);
+	}
+
+	/**
+ 	A complete standalone draw of the object. Bad performance.
+ */
+
+
+	_createClass(DrawableObject, [{
+		key: "draw",
+		value: function draw(context) {
+
+			//define the fill style, etc.
+
+			this.place(context);
+
+			// End path etc.
+		}
+
+		/**
+  	Place the object on a canvas for batch rendering.
+  
+  	Anything that is batch rendered will have to be the same color;
+  */
+
+	}, {
+		key: "place",
+		value: function place(context) {
+			throw new Error("This method should be overridden by extending class");
+		}
+	}]);
+
+	return DrawableObject;
+}();
+
+exports.default = DrawableObject;
+
+/***/ }),
+/* 213 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _DrawableObject2 = __webpack_require__(212);
+
+var _DrawableObject3 = _interopRequireDefault(_DrawableObject2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Rect = function (_DrawableObject) {
+	_inherits(Rect, _DrawableObject);
+
+	function Rect(size, color, position) {
+		_classCallCheck(this, Rect);
+
+		var _this = _possibleConstructorReturn(this, (Rect.__proto__ || Object.getPrototypeOf(Rect)).call(this));
+
+		_this.size = size;
+		_this.color = color;
+		_this.position = position;
+
+		return _this;
+	}
+
+	_createClass(Rect, [{
+		key: "draw",
+		value: function draw(context) {
+
+			var sizeX = context.canvas.width;
+			var sizeY = context.canvas.height;
+
+			context.fillStyle = this.color.toString();
+
+			context.fillRect(this.position.x * sizeX, this.position.y * sizeY, (this.position.x + this.size) * sizeX, (this.position.y + this.size) * sizeY);
+		}
+	}]);
+
+	return Rect;
+}(_DrawableObject3.default);
+
+exports.default = Rect;
+
+/***/ }),
+/* 214 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _adjust = __webpack_require__(35);
+
+var _DrawableObject2 = __webpack_require__(212);
+
+var _DrawableObject3 = _interopRequireDefault(_DrawableObject2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Circle = function (_DrawableObject) {
+	_inherits(Circle, _DrawableObject);
+
+	function Circle(size, color, position) {
+		var solid = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+
+		_classCallCheck(this, Circle);
+
+		var _this = _possibleConstructorReturn(this, (Circle.__proto__ || Object.getPrototypeOf(Circle)).call(this));
+
+		_this.size = size;
+		_this.color = color;
+		_this.position = position;
+
+		_this.solid = solid;
+
+		return _this;
+	}
+
+	_createClass(Circle, [{
+		key: "draw",
+		value: function draw(context) {
+
+			if (this.solid) {
+				context.fillStyle = this.color.toString();
+			} else {
+				context.strokeStyle = this.color.toString();
+			}
+
+			context.beginPath();
+			this.place(context);
+			context.closePath();
+
+			if (this.solid) {
+				context.fill();
+			} else {
+				context.stroke();
+			}
+		}
+	}, {
+		key: "place",
+		value: function place(context) {
+
+			var p = (0, _adjust.adjustPosition)(context, this.position);
+			var s = (0, _adjust.adjustSize)(context, this.size);
+
+			context.moveTo(p.x, p.y);
+			context.ellipse(p.x, p.y, s.x, s.y, 0, 0, 2 * Math.PI, false);
+		}
+	}]);
+
+	return Circle;
+}(_DrawableObject3.default);
+
+exports.default = Circle;
+
+/***/ }),
+/* 215 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Color = __webpack_require__(16);
+
+var _Color2 = _interopRequireDefault(_Color);
+
+var _DrawableObject2 = __webpack_require__(212);
+
+var _DrawableObject3 = _interopRequireDefault(_DrawableObject2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /***
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               A container of objects to be rendered in one go.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               All objects will be the same color, but (future state) you can apply a gradient.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+
+var Batch = function (_DrawableObject) {
+  _inherits(Batch, _DrawableObject);
+
+  function Batch() {
+    var list = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new _Color2.default(200, 200, 200, 0.5);
+
+    _classCallCheck(this, Batch);
+
+    var _this = _possibleConstructorReturn(this, (Batch.__proto__ || Object.getPrototypeOf(Batch)).call(this));
+
+    _this.list = list;
+    _this.color = color;
+    return _this;
+  }
+
+  _createClass(Batch, [{
+    key: "add",
+    value: function add(obj) {
+      this.list.push(obj);
+    }
+  }, {
+    key: "draw",
+    value: function draw(context) {
+
+      context.fillStyle = this.color.toString();
+      context.beginPath();
+
+      this.place(context);
+
+      context.closePath();
+      context.fill();
+    }
+  }, {
+    key: "place",
+    value: function place(context) {
+
+      //Assumes everything has a place method.
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = this.list[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var obj = _step.value;
+
+          obj.place(context);
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+    }
+  }]);
+
+  return Batch;
+}(_DrawableObject3.default);
+
+exports.default = Batch;
+
+/***/ }),
+/* 216 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+		value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _adjust = __webpack_require__(35);
+
+var _DrawableObject2 = __webpack_require__(212);
+
+var _DrawableObject3 = _interopRequireDefault(_DrawableObject2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var GradientLine = function (_DrawableObject) {
+		_inherits(GradientLine, _DrawableObject);
+
+		function GradientLine(cp1, cp2) {
+				_classCallCheck(this, GradientLine);
+
+				var _this = _possibleConstructorReturn(this, (GradientLine.__proto__ || Object.getPrototypeOf(GradientLine)).call(this));
+
+				_this.cp1 = cp1;
+				_this.cp2 = cp2;
+
+				_this.color = '#fff';
+				return _this;
+		}
+
+		_createClass(GradientLine, [{
+				key: "draw",
+				value: function draw(context) {
+
+						var p1 = (0, _adjust.adjustPosition)(context, this.cp1.position);
+						var p2 = (0, _adjust.adjustPosition)(context, this.cp2.position);
+
+						var gradient = context.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+
+						gradient.addColorStop(0, this.cp1.color.toString());
+						gradient.addColorStop(1, this.cp2.color.toString());
+						context.strokeStyle = gradient;
+						context.lineWidth = 3;
+
+						context.beginPath();
+						context.moveTo(p1.x, p1.y);
+						context.lineTo(p2.x, p2.y);
+						context.stroke();
+				}
+		}]);
+
+		return GradientLine;
+}(_DrawableObject3.default);
+
+exports.default = GradientLine;
+
+/***/ }),
+/* 217 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _DrawableObject2 = __webpack_require__(212);
+
+var _DrawableObject3 = _interopRequireDefault(_DrawableObject2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+	This one looks like it's likley broken. Remove this message if it's not.
+*/
+var Line = function (_DrawableObject) {
+	_inherits(Line, _DrawableObject);
+
+	function Line(p1, p2, color) {
+		_classCallCheck(this, Line);
+
+		var _this = _possibleConstructorReturn(this, (Line.__proto__ || Object.getPrototypeOf(Line)).call(this));
+
+		_this.p1 = p1;
+		_this.p2 = p2;
+		_this.color = color;
+		return _this;
+	}
+
+	_createClass(Line, [{
+		key: "draw",
+		value: function draw(context) {
+
+			context.strokeStyle = this.color.toString();
+			context.lineWidth = 3;
+
+			context.beginPath();
+			context.moveTo(this.p1.x, this.p1.y);
+			context.lineTo(this.p2.x, this.p2.y);
+			context.stroke();
+		}
+	}]);
+
+	return Line;
+}(_DrawableObject3.default);
+
+exports.default = Line;
 
 /***/ })
 /******/ ]);

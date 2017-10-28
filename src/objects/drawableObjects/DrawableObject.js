@@ -12,8 +12,8 @@ You can use this as hints for how to use the other objects
 
 class DrawableObject   {
 
-	constructor(color){
-		this.color = color;
+	constructor(){
+
 	}
 
 
@@ -34,10 +34,10 @@ class DrawableObject   {
 	/**
 		Place the object on a canvas for batch rendering.
 
-		Anything that is batch rendered will have to be the same color; 
+		Anything that is batch rendered will have to be the same color;
 	*/
 	place (context) {
-
+		throw new Error("This method should be overridden by extending class");
 	}
 
 }

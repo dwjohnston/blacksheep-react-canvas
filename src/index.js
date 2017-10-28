@@ -1,19 +1,25 @@
 
+//Core functionality
 import Canvas from "./Canvas.jsx";
 import CanvasCore from "./CanvasCore";
+import CanvasLayer from "./CanvasLayer";
+
+//Things that make up drawables
 import ColorPoint from "./objects/ColorPoint";
 import Color from './objects/Color';
-import Circle from "./objects/Circle";
-import Rect from "./objects/Rect";
-import Batch from "./objects/Batch";
-
-import ClearAll from "./objects/ClearAll";
-
-import DrawableObject from "./objects/DrawableObject";
-import GradientLine from "./objects/GradientLine";
-import Line from "./objects/Line";
 import Position from "./objects/Position";
-import CanvasLayer from "./CanvasLayer";
+
+//Actual drawables
+import Circle from "./objects/drawableObjects/Circle";
+import Rect from "./objects/drawableObjects/Rect";
+import Batch from "./objects/drawableObjects/Batch";
+
+import ClearAll from "./objects/drawableObjects/ClearAll";
+
+import DrawableObject from "./objects/drawableObjects/DrawableObject";
+import GradientLine from "./objects/drawableObjects/GradientLine";
+import Line from "./objects/drawableObjects/Line";
+
 
 
 

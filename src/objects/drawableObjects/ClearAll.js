@@ -1,16 +1,19 @@
 import Rect from "./Rect";
-import Color from "./Color";
-import Position from "./Position";
+import Color from "../Color";
+import Position from "../Position";
 
-import {adjustPosition} from "../util/adjust";
+import {adjustPosition} from "../../util/adjust";
+import DrawableObject from "./DrawableObject"
+
 /**
 A simple object to pass through to completely clear the canvas
 */
 
 
-class ClearAll{
+class ClearAll extends DrawableObject{
 
   constructor(color = new Color(0, 0, 0, 1)){
+    super();
     this.color = color;
   }
 
