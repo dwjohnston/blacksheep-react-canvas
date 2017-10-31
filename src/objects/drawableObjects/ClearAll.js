@@ -27,9 +27,7 @@ class ClearAll extends DrawableObject{
     }
 
     else {
-
       new Rect(1, this.color, new Position(0,0)).draw(context);
-
     }
 
 

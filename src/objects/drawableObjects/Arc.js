@@ -2,6 +2,9 @@ import {adjustPosition, adjustSize} from "../../util/adjust";
 import DrawableObject from "./DrawableObject"
 
 
+/***
+  nb. is empty
+*/
 class Arc extends DrawableObject {
 
 
@@ -17,6 +20,6 @@ class Arc extends DrawableObject {
   }
 
   place(context) {
-    
+
   }
 }

@@ -9988,6 +9988,11 @@ var Canvas = function (_React$Component) {
 					newCanvas.height = this.h;
 					var newContext = newCanvas.getContext('2d');
 
+					//Total hack for now
+					if (q[0] instanceof _ClearAll2.default) {
+						q[0].draw(this.contexts[key]);
+					}
+
 					var _iteratorNormalCompletion = true;
 					var _didIteratorError = false;
 					var _iteratorError = undefined;
@@ -9995,7 +10000,6 @@ var Canvas = function (_React$Component) {
 					try {
 						for (var _iterator = q[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 							var obj = _step.value;
-
 
 							if (obj) {
 								obj.draw(newContext);
@@ -10016,9 +10020,6 @@ var Canvas = function (_React$Component) {
 						}
 					}
 
-					var degrade = this.props.layers[key].degradeLayer;
-
-					new _ClearAll2.default(degrade).draw(this.contexts[key]);
 					this.contexts[key].drawImage(newCanvas, 0, 0);
 				}
 			}
@@ -10037,7 +10038,6 @@ var Canvas = function (_React$Component) {
 
 
 			if (object) {
-				//object.draw(canvas);
 				object.place(canvas);
 			}
 		}
@@ -10055,9 +10055,6 @@ var Canvas = function (_React$Component) {
 
 					context.clearRect(0, 0, this.w, this.h);
 				}
-				//
-				// this.drawContext.clearRect(0, 0, this.w, this.h);
-				// this.paintContext.clearRect(0, 0, this.w, this.h);
 			} catch (err) {
 				_didIteratorError2 = true;
 				_iteratorError2 = err;
@@ -10135,30 +10132,24 @@ var CanvasCore = function () {
 	/**
  
  
- 	FUTURE STATE
+ FUTURE STATE
  
- 	rather than just having a paint queue and a draw queue, you can have n layers
+ rather than just having a paint queue and a draw queue, you can have n layers
  
  */
 
 	/**
- 	We're not going to have a background color or degrade rate or whatever defined here.
+ We're not going to have a background color or degrade rate or whatever defined here.
  
- 	Let the algorithm handle that.
+ Let the algorithm handle that.
  */
 	function CanvasCore() {
-		var paintBgColor = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "#000000";
-		var paintBgDegradeRate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-		var layers = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+		var layers = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
 		_classCallCheck(this, CanvasCore);
 
 		this.layers = layers;
-
 		this.requiresClear = false;
-
-		this.paintBgColor = paintBgColor; //OK COLOR DOESN'T WORK, CBF DOING THIS FOR NOW
-		this.paintBgDegradeRate = paintBgDegradeRate;
 
 		this.clearQueue();
 	}
@@ -10210,19 +10201,8 @@ var CanvasCore = function () {
 		key: "getPaintQueue",
 		value: function getPaintQueue() {
 			if (this.drawingSource !== undefined) {
-
 				return this.drawingSource.tick();
 			}
-
-			// var temp = this.paintQueue;
-			//
-			// this.clearQueue();
-			// //
-			// // if (this.paintBgDegradeRate !== 0){
-			// // 	//this.paintQueue.push(new Rect(1, new Color(0, 0, 0, this.paintBgDegradeRate), new Position(0,0)));
-			// // }
-			//
-			// return temp;
 		}
 	}]);
 
@@ -10251,13 +10231,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var CanvasLayer = function CanvasLayer() {
-  var backgroundColor = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new _Color2.default(0, 0, 0, 1);
-  var degradeLayer = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new _Color2.default(0, 0, 0, 0);
-
   _classCallCheck(this, CanvasLayer);
-
-  this.backgroundColor = backgroundColor;
-  this.degradeLayer = degradeLayer;
 };
 
 exports.default = CanvasLayer;
@@ -23820,7 +23794,6 @@ var ClearAll = function (_DrawableObject) {
         var max = (0, _adjust.adjustPosition)(context, new _Position2.default(1, 1));
         context.clearRect(0, 0, max.x, max.y);
       } else {
-
         new _Rect2.default(1, this.color, new _Position2.default(0, 0)).draw(context);
       }
     }

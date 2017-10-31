@@ -81,24 +81,18 @@ class Canvas extends React.Component {
 				let newContext = newCanvas.getContext('2d');
 
 
+				//Total hack for now
+				if (q[0] instanceof  ClearAll) {
+					q[0].draw(this.contexts[key]);
+				}
 
 				for (var obj of q){
-
 					if (obj) {
 						obj.draw(newContext);
 					}
-
 				}
 
-
-				let degrade = this.props.layers[key].degradeLayer;
-
-
-
-
-				new ClearAll(degrade).draw(this.contexts[key]);
 				this.contexts[key].drawImage(newCanvas,0,0);
-
 			}
 		}
 
@@ -116,7 +110,6 @@ class Canvas extends React.Component {
 	myPaint(object, canvas =  this.contexts[0]) {
 
 		if (object){
-			//object.draw(canvas);
 			object.place(canvas);
 		}
 	}
@@ -125,14 +118,10 @@ class Canvas extends React.Component {
 
 	clearAll() {
 
-
-
 		for (let context of this.contexts) {
 			context.clearRect(0,0, this.w, this.h);
 		}
-		//
-		// this.drawContext.clearRect(0, 0, this.w, this.h);
-		// this.paintContext.clearRect(0, 0, this.w, this.h);
+
 	}
 
 

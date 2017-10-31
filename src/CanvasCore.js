@@ -9,31 +9,25 @@ class CanvasCore {
 	/**
 
 
-		FUTURE STATE
+	FUTURE STATE
 
-		rather than just having a paint queue and a draw queue, you can have n layers
+	rather than just having a paint queue and a draw queue, you can have n layers
 
 	*/
 
 
-/**
+	/**
 	We're not going to have a background color or degrade rate or whatever defined here.
 
 	Let the algorithm handle that.
-*/
-	constructor(paintBgColor="#000000", paintBgDegradeRate=0, layers=1) {
+	*/
+	constructor(layers=1) {
 
 
 		this.layers = layers;
-
 		this.requiresClear = false;
 
-		this.paintBgColor = paintBgColor;	//OK COLOR DOESN'T WORK, CBF DOING THIS FOR NOW
-		this.paintBgDegradeRate = paintBgDegradeRate;
-
 		this.clearQueue();
-
-
 	}
 
 
@@ -89,22 +83,8 @@ class CanvasCore {
 
 	getPaintQueue() {
 		if(this.drawingSource !== undefined){
-
 			return this.drawingSource.tick();
-
-
 		}
-
-
-		// var temp = this.paintQueue;
-		//
-		// this.clearQueue();
-		// //
-		// // if (this.paintBgDegradeRate !== 0){
-		// // 	//this.paintQueue.push(new Rect(1, new Color(0, 0, 0, this.paintBgDegradeRate), new Position(0,0)));
-		// // }
-		//
-		// return temp;
 	}
 
 }
