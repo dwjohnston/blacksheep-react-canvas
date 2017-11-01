@@ -10,6 +10,7 @@ class Color {
     this.g = g;
     this.b = b;
     this.opacity = opacity;
+		this.a = opacity;
 	}
 
   toString() {

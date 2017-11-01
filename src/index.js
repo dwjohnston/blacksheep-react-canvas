@@ -11,6 +11,7 @@ import Position from "./objects/Position";
 
 //Actual drawables
 import Circle from "./objects/drawableObjects/Circle";
+import Polygon from "./objects/drawableObjects/Polygon";
 import Rect from "./objects/drawableObjects/Rect";
 import Batch from "./objects/drawableObjects/Batch";
 
@@ -19,6 +20,8 @@ import ClearAll from "./objects/drawableObjects/ClearAll";
 import DrawableObject from "./objects/drawableObjects/DrawableObject";
 import GradientLine from "./objects/drawableObjects/GradientLine";
 import Line from "./objects/drawableObjects/Line";
+
+import GeoUtil from "./util/geo";
 
 
 
@@ -31,12 +34,16 @@ module.exports = {
 	ColorPoint: ColorPoint,
 	DrawableObject: DrawableObject,
 	GradientLine: GradientLine,
+	Polygon: Polygon,
 	Line: Line,
 	Position: Position,
 	Rect: Rect,
 	ClearAll: ClearAll,
 	Batch, Batch,
-	CanvasLayer: CanvasLayer
+	CanvasLayer: CanvasLayer,
+
+
+	GeoUtil: GeoUtil,
 
 
 }

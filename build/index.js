@@ -2502,6 +2502,7 @@ var Color = function () {
     this.g = g;
     this.b = b;
     this.opacity = opacity;
+    this.a = opacity;
   }
 
   _createClass(Color, [{
@@ -10300,6 +10301,10 @@ var _Circle = __webpack_require__(214);
 
 var _Circle2 = _interopRequireDefault(_Circle);
 
+var _Polygon = __webpack_require__(218);
+
+var _Polygon2 = _interopRequireDefault(_Polygon);
+
 var _Rect = __webpack_require__(213);
 
 var _Rect2 = _interopRequireDefault(_Rect);
@@ -10324,6 +10329,10 @@ var _Line = __webpack_require__(217);
 
 var _Line2 = _interopRequireDefault(_Line);
 
+var _geo = __webpack_require__(219);
+
+var _geo2 = _interopRequireDefault(_geo);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -10344,11 +10353,12 @@ module.exports = (_module$exports = {
 	ColorPoint: _ColorPoint2.default,
 	DrawableObject: _DrawableObject2.default,
 	GradientLine: _GradientLine2.default,
+	Polygon: _Polygon2.default,
 	Line: _Line2.default,
 	Position: _Position2.default,
 	Rect: _Rect2.default,
 	ClearAll: _ClearAll2.default,
-	Batch: _Batch2.default }, _defineProperty(_module$exports, "Batch", _Batch2.default), _defineProperty(_module$exports, "CanvasLayer", _CanvasLayer2.default), _module$exports);
+	Batch: _Batch2.default }, _defineProperty(_module$exports, "Batch", _Batch2.default), _defineProperty(_module$exports, "CanvasLayer", _CanvasLayer2.default), _defineProperty(_module$exports, "GeoUtil", _geo2.default), _module$exports);
 
 /***/ }),
 /* 97 */
@@ -24280,6 +24290,173 @@ var Line = function (_DrawableObject) {
 }(_DrawableObject3.default);
 
 exports.default = Line;
+
+/***/ }),
+/* 218 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+		value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _adjust = __webpack_require__(35);
+
+var _geo = __webpack_require__(219);
+
+var _DrawableObject2 = __webpack_require__(212);
+
+var _DrawableObject3 = _interopRequireDefault(_DrawableObject2);
+
+var _Position = __webpack_require__(33);
+
+var _Position2 = _interopRequireDefault(_Position);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Polygon = function (_DrawableObject) {
+		_inherits(Polygon, _DrawableObject);
+
+		function Polygon(size, color, position) {
+				var nSides = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 3;
+				var phase = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0;
+				var solid = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : true;
+				var width = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : 3;
+
+				_classCallCheck(this, Polygon);
+
+				var _this = _possibleConstructorReturn(this, (Polygon.__proto__ || Object.getPrototypeOf(Polygon)).call(this));
+
+				_this.size = size;
+				_this.color = color;
+				_this.nSides = nSides;
+				_this.phase = phase;
+				_this.position = position;
+
+				_this.solid = solid;
+
+				_this.width = width;
+
+				_this.points = [];
+
+				for (var i = 1; i <= _this.nSides; i++) {
+						var _phase = _this.phase + Math.PI * 2 * (i / _this.nSides);
+						_phase = _phase % (Math.PI * 2);
+						var pp = (0, _geo.pointOnCircle)(_this.position, _this.size, _phase);
+						_this.points.push(pp);
+				}
+
+				return _this;
+		}
+
+		_createClass(Polygon, [{
+				key: "draw",
+				value: function draw(context) {
+
+						if (this.solid) {
+								context.fillStyle = this.color.toString();
+						} else {
+								context.strokeStyle = this.color.toString();
+								context.lineWidth = this.width;
+						}
+
+						context.beginPath();
+
+						this.place(context);
+
+						context.closePath();
+
+						if (this.solid) {
+								context.fill();
+						} else {
+								context.stroke();
+						}
+				}
+		}, {
+				key: "place",
+				value: function place(context) {
+
+						var p = (0, _adjust.adjustPosition)(context, this.position);
+						var s = (0, _adjust.adjustSize)(context, this.size);
+
+						var pInit = (0, _geo.pointOnCircle)(p, s, this.phase);
+						context.moveTo(pInit.x, pInit.y);
+
+						var _iteratorNormalCompletion = true;
+						var _didIteratorError = false;
+						var _iteratorError = undefined;
+
+						try {
+								for (var _iterator = this.points[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+										var pp = _step.value;
+
+										pp = (0, _adjust.adjustPosition)(context, pp);
+										context.lineTo(pp.x, pp.y);
+								}
+						} catch (err) {
+								_didIteratorError = true;
+								_iteratorError = err;
+						} finally {
+								try {
+										if (!_iteratorNormalCompletion && _iterator.return) {
+												_iterator.return();
+										}
+								} finally {
+										if (_didIteratorError) {
+												throw _iteratorError;
+										}
+								}
+						}
+				}
+		}]);
+
+		return Polygon;
+}(_DrawableObject3.default);
+
+exports.default = Polygon;
+
+/***/ }),
+/* 219 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _Position = __webpack_require__(33);
+
+var _Position2 = _interopRequireDefault(_Position);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function pointBetween(p1, p2, ratio) {
+  return new _Position2.default((p1.x - p2.x) * ratio + p2.x, (p1.y - p2.y) * ratio + p2.y);
+}
+
+function pointOnCircle(center, distance, phase) {
+
+  var position = new _Position2.default();
+
+  position.update(center.x + Math.cos(phase) * distance, center.y + Math.sin(phase) * distance);
+
+  return position;
+}
+
+module.exports = {
+
+  pointOnCircle: pointOnCircle,
+  pointBetween: pointBetween
+
+};
 
 /***/ })
 /******/ ]);
