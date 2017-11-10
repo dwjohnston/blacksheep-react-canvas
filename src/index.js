@@ -25,6 +25,7 @@ import GeoUtil from "./util/geo";
 
 
 import AbstractPolygon from "./objects/abstract/AbstractPolygon";
+import NestedPolygon from "./objects/abstract/NestedPolygon";
 
 
 
@@ -46,7 +47,7 @@ module.exports = {
 	CanvasLayer: CanvasLayer,
 
 	AbstractPolygon: AbstractPolygon,
-
+NestedPolygon: NestedPolygon,
 
 	GeoUtil: GeoUtil,
 

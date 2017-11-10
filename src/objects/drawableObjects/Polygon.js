@@ -8,21 +8,17 @@ import AbstractPolygon from "../abstract/AbstractPolygon";
 
 class Polygon  extends DrawableObject {
 
-	constructor(size, color, position, nSides=3, phase=0, solid = true, width = 3){
+	constructor(polygon, color,  solid = true, width = 3){
 		super();
-		this.size = size;
-		this.color = color;
-    this.nSides = nSides;
-    this.phase = phase;
-		this.position = position;
 
-		this.solid = solid;
+		this.color = color;
+  	this.solid = solid;
 
     this.width = width;
 
 
-		let p = new AbstractPolygon(nSides, size, phase, position);
-    this.points =p.getPoints();
+
+    this.points =polygon.getPoints();
 
 
 
@@ -63,12 +59,7 @@ class Polygon  extends DrawableObject {
 
 	place(context) {
 
-
-		let p = adjustPosition(context, this.position);
-		let s = adjustSize(context, this.size);
-
-
-    let pInit = pointOnCircle(p, s, this.phase);
+    let pInit = adjustPosition(context, this.points[this.points.length-1]);
     context.moveTo(pInit.x,pInit.y);
 
     for (let pp of this.points) {
