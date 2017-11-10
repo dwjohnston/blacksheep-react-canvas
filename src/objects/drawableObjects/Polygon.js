@@ -4,6 +4,8 @@ import {pointOnCircle} from "../../util/geo";
 import DrawableObject from "./DrawableObject"
 import Position from "../Position"
 
+import AbstractPolygon from "../abstract/AbstractPolygon";
+
 class Polygon  extends DrawableObject {
 
 	constructor(size, color, position, nSides=3, phase=0, solid = true, width = 3){
@@ -18,14 +20,12 @@ class Polygon  extends DrawableObject {
 
     this.width = width;
 
-    this.points = [];
 
-    for (let i = 1; i <= this.nSides; i++){
-      let phase = this.phase + ((Math.PI * 2) * (i/ this.nSides));
-      phase = phase % (Math.PI *2)
-      let pp = pointOnCircle(this.position, this.size, phase);
-      this.points.push(pp);
-    }
+		let p = new AbstractPolygon(nSides, size, phase, position);
+    this.points =p.getPoints();
+
+
+
 
 	}
 

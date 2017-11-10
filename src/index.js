@@ -24,6 +24,9 @@ import Line from "./objects/drawableObjects/Line";
 import GeoUtil from "./util/geo";
 
 
+import AbstractPolygon from "./objects/abstract/AbstractPolygon";
+
+
 
 
 module.exports = {
@@ -41,6 +44,8 @@ module.exports = {
 	ClearAll: ClearAll,
 	Batch, Batch,
 	CanvasLayer: CanvasLayer,
+
+	AbstractPolygon: AbstractPolygon,
 
 
 	GeoUtil: GeoUtil,
