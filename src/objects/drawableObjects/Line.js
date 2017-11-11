@@ -1,6 +1,6 @@
 import DrawableObject from "./DrawableObject"
 import {adjustPosition} from "../../util/adjust";
-
+import Toolbox from "../../util/toolbox";
 /**
 This one looks like it's likley broken. Remove this message if it's not.
 */
@@ -10,9 +10,9 @@ class Line extends DrawableObject {
 
 	constructor(p1, p2, color, size = 1) {
 		super();
-		this.p1 = p1;
-		this.p2 = p2;
-		this.color= color;
+		this.p1 =  Toolbox.clone(p1);
+		this.p2 = Toolbox.clone(p2);
+		this.color= Toolbox.clone(color);
 
 		this.size = size;
 	}
