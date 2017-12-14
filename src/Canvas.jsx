@@ -12,7 +12,6 @@ class Canvas extends React.Component {
 
 
 	componentWillMount(){
-		this.setState({canvasCore: this.props.canvasCore});
 
 
 		this.layers = [];
@@ -25,6 +24,10 @@ class Canvas extends React.Component {
 			}}  />); //}
 
 		}
+
+		this.props.canvasCore.refLayers = this.refLayers;
+		this.setState({canvasCore: this.props.canvasCore});
+
 
 	}
 
@@ -59,11 +62,23 @@ class Canvas extends React.Component {
 	}
 
 
+	handleJpegRequest() {
+
+
+		let image = this.refLayers[0].toDataURL("image/png");
+
+		this.props.getJpeg(image);
+	}
+
 	drawAnimationFrame() {
 
 
 		if(this.state.canvasCore.getRequiresClear()){
 			this.clearAll();
+		}
+
+		if(this.state.canvasCore.getJpegRequested()) {
+			this.handleJpegRequest();
 		}
 
 		let pq = this.state.canvasCore.getPaintQueue();

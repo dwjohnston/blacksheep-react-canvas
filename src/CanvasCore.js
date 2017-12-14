@@ -26,6 +26,7 @@ class CanvasCore {
 
 		this.layers = layers;
 		this.requiresClear = false;
+		this.jpegRequested = false;
 
 		this.clearQueue();
 	}
@@ -85,6 +86,18 @@ class CanvasCore {
 		if(this.drawingSource !== undefined){
 			return this.drawingSource.tick();
 		}
+	}
+
+	getJpegRequested() {
+		let b = this.jpegRequested;
+		this.jpegRequested = false;
+		return b;
+	}
+
+	requestJpeg() {
+
+		console.log("request jpeg");
+		this.jpegRequested = true;
 	}
 
 }
