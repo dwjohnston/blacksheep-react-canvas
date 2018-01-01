@@ -40,6 +40,22 @@ class Canvas extends React.Component {
 
 			this.refLayers[i].width = this.w;
 			this.refLayers[i].height = this.h;
+
+
+			let style;
+			if (this.w > this.h) {
+				let marginLeft = ["margin-left: ", (this.w - this.h)/2, "px;"].join('');
+				style =  ["width: ", this.h ,"px; height:",  this.h, "px;", marginLeft ].join('');
+			}
+			else {
+				let marginTop = ["margin-top: ", (this.h - this.w)/2, "px;"].join('');
+				style =  ["width: ", this.w ,"px; height:",  this.w, "px;", marginTop ].join('');
+
+			}
+			
+			this.refLayers[i].style = style;
+
+			console.log(this.refLayers[i]);
 		}
 
 	}

@@ -10,6 +10,14 @@ class Position {
 		this.y =y;
 	}
 
+	updateFromPosition(pos) {
+		this.update(pos.x, pos.y);
+	}
+
+	copy() {
+		return new Position(this.x, this.y);
+	}
+
 }
 
 

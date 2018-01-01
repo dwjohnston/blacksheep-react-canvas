@@ -21,12 +21,13 @@ import DrawableObject from "./objects/drawableObjects/DrawableObject";
 import GradientLine from "./objects/drawableObjects/GradientLine";
 import Line from "./objects/drawableObjects/Line";
 
-import GeoUtil from "./util/geo";
+import {pointOnCircle} from "./util/geo";
+
+
 
 
 import AbstractPolygon from "./objects/abstract/AbstractPolygon";
 import NestedPolygon from "./objects/abstract/NestedPolygon";
-
 
 
 
@@ -47,9 +48,11 @@ module.exports = {
 	CanvasLayer: CanvasLayer,
 
 	AbstractPolygon: AbstractPolygon,
-NestedPolygon: NestedPolygon,
+	NestedPolygon: NestedPolygon,
 
-	GeoUtil: GeoUtil,
+	foo: {bar: "bar"},
+
+	pointOnCircle: pointOnCircle,
 
 
 }
