@@ -1,6 +1,6 @@
 {
   "name": "blacksheep-react-canvas",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "description": "A canvas conponent for react, with some ease of use functions",
   "main": "build/index.js",
   "peerDependencies": {
