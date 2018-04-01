@@ -16,6 +16,17 @@ class Color {
   toString() {
     return ["rgba(",this.r,",",this.g,",",this.b,",", this.opacity,")"].join("");
   }
+
+	shift(v,w) {
+
+		return new Color(
+			Math.floor(this.r +v),
+			 Math.floor(this.g +v),
+			  Math.floor(this.b +v),
+				this.a + w
+		);
+
+}
 }
 
 

@@ -4,11 +4,12 @@ import DrawableObject from "./DrawableObject"
 
 class Circle  extends DrawableObject {
 
-	constructor(size, color, position, solid = true){
+	constructor(size, color, position, solid = true, lineWidth=2){
 		super();
 		this.size = size;
 		this.color = color;
 		this.position = position;
+		this.lineWidth = lineWidth;
 
 		this.solid = solid;
 
@@ -23,6 +24,7 @@ class Circle  extends DrawableObject {
 		}
 		else {
 			context.strokeStyle = this.color.toString();
+			context.lineWidth = this.lineWidth;
 		}
 
 
