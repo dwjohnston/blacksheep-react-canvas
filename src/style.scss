@@ -1,38 +1,26 @@
 .Canvas {
-	&.canvas-container {
 		display: block;
-		position: relative;
-	}
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0; 
+		bottom: 0;
 
-	canvas {
 
-		&.blacksheep-canvas {
-			position: absolute;
-			left: 0;
-			right: 0;
-			top: 0;
-			bottom: 0;
+
+
+	&>div 	{
+		position: absolute; 
+		left: 0; 
+		right: 0; 
+		top: 0; 
+		bottom: 0; 
+		&>canvas {
+			position: absolute; 
+			left: 0; 
+			right: 0; 
+			top: 0; 
+			bottom: 0; 
 		}
-
-		&.paint-canvas {
-			position: absolute;
-			left: 0;
-			right: 0;
-			top: 0;
-			bottom: 0;
-			z-index: 9;
-			background-color: black;
-		}
-
-		&.draw-canvas {
-			position: absolute;
-
-			left: 0;
-			right: 0;
-			top: 0;
-			bottom: 0;
-			z-index:10;
-			background-color: transparent;
-		}
-	}
+	}		
 }

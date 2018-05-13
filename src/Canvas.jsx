@@ -10,66 +10,58 @@ import ClearAll from "./objects/drawableObjects/ClearAll";
 
 class Canvas extends React.Component {
 
+	constructor() {
+		super(); 
+		console.log("hellO");
+		console.log(this.props); 
+		this.refLayers = [];
 
-	componentWillMount(){
 
+		this.state = {
+			size: 500, 
 
-		this.layers = [];
-		this.refLayers = {}
-		for (let i in this.props.layers){
-			this.layers.push(			<canvas className = "blacksheep-canvas" key ={"canvas-layer-"+i} ref = {(canvas) => {
-
-				this.refLayers[i] = canvas;
-				//this.layers[i] = canvas
-			}}  />); //}
-
-		}
-
-		this.props.canvasCore.refLayers = this.refLayers;
-		this.setState({canvasCore: this.props.canvasCore});
+			container: null, 
+			layers: null, 
+		}; 
 
 
 	}
 
-	resize() {
 
-		this.w = this.container.clientWidth;
-		this.h =  this.container.clientHeight;
+	componentWillMount(){
 
-		for (let i in this.layers) {
-
-			this.refLayers[i].width = this.w;
-			this.refLayers[i].height = this.h;
-
-
-			let style;
-			if (this.w > this.h) {
-				let marginLeft = ["margin-left: ", (this.w - this.h)/2, "px;"].join('');
-				style =  ["width: ", this.h ,"px; height:",  this.h, "px;", marginLeft ].join('');
-			}
-			else {
-				let marginTop = ["margin-top: ", (this.h - this.w)/2, "px;"].join('');
-				style =  ["width: ", this.w ,"px; height:",  this.w, "px;", marginTop ].join('');
-
-			}
-			
-			this.refLayers[i].style = style;
-
-			console.log(this.refLayers[i]);
+		for (let i in this.props.layers){
+			this.refLayers.push(React.createRef()); 
 		}
 
+
+
+		this.props.canvasCore.refLayers = this.refLayers;
+		this.setState({canvasCore: this.props.canvasCore}); 
+
+	}
+
+	resize(resizeDimensions) {
+
+		this.setState({size: resizeDimensions.width > resizeDimensions.height ? resizeDimensions.height : resizeDimensions.width});
 	}
 
 	componentDidMount() {
 
-		this.resize();
+		//this.resize();
 
-		this.contexts = [];
-		for (let i in this.layers) {
-			let canvas = this.refLayers[i];
-			this.contexts.push(canvas.getContext("2d"));
+		let contexts = [];
+		for (let i in this.props.layers) {
+			let canvas = this.refLayers[i].current;
+			console.log(canvas); 
+
+			contexts.push(canvas.getContext("2d"));
 
 		}
+
+		this.setState({
+			contexts: contexts
+		});
 
 		window.requestAnimationFrame(() => {
 			this.drawAnimationFrame();
@@ -81,7 +73,8 @@ class Canvas extends React.Component {
 	handleJpegRequest() {
 
 
-		let image = this.refLayers[0].toDataURL("image/png");
+		let image = this.refLayers[0].current.toDataURL("image/png");
+		console.log("foo");
 
 		this.props.getJpeg(image);
 	}
@@ -107,14 +100,16 @@ class Canvas extends React.Component {
 			if( q.length > 0) {
 
 				let newCanvas = document.createElement("canvas");
-				newCanvas.width = this.w;
-				newCanvas.height = this.h;
+
+
+				//let size = newCanvas.width > newCanvas.height ? newCanvas.height : newCanvas.width;
+				newCanvas.width = this.state.size;
+				newCanvas.height = this.state.size;
 				let newContext = newCanvas.getContext('2d');
-
-
+				
 				//Total hack for now
 				if (q[0] instanceof  ClearAll) {
-					q[0].draw(this.contexts[key]);
+					q[0].draw(this.state.contexts[key]);
 				}
 
 				for (var obj of q){
@@ -123,7 +118,7 @@ class Canvas extends React.Component {
 					}
 				}
 
-				this.contexts[key].drawImage(newCanvas,0,0);
+				this.state.contexts[key].drawImage(newCanvas,0,0);
 			}
 		}
 
@@ -138,7 +133,7 @@ class Canvas extends React.Component {
 
 	}
 
-	myPaint(object, canvas =  this.contexts[0]) {
+	myPaint(object, canvas =  this.state.contexts[0]) {
 
 		if (object){
 			object.place(canvas);
@@ -149,7 +144,7 @@ class Canvas extends React.Component {
 
 	clearAll() {
 
-		for (let context of this.contexts) {
+		for (let context of this.state.contexts) {
 			context.clearRect(0,0, this.w, this.h);
 		}
 
@@ -157,17 +152,36 @@ class Canvas extends React.Component {
 
 
 
+	renderLayers() {
+
+
+		let layers =[]; 
+
+		console.log(this.props.layers);
+		for (let i = 0; i< this.props.layers.length; i++) {
+			layers.push( <canvas ref = {this.refLayers[i]} key = {"canvas-" + i }/>); 
+		}
+
+		return layers; 
+	}
+
+
 
 	render() {
-
-		return	<div className = "Canvas canvas-container" id = {this.props.id} ref = {(div) => {this.container = div}}>
-			<ResizeAware style={{ position: 'absolute', width: "100%", height: "100%"}}
-				onResize = {() => {
-					this.resize();
-				}}
+//	{*/ref = {(div) => {this.setState({container: div})}}*/}
+//style={{ position: 'absolute', width: "100%", height: "100%"}}
+		return	<div className = "Canvas" id = {this.props.id} >
+			<ResizeAware 
+				onResize = {rd => this.resize(rd)}
 				>
-				{this.layers}
+
+
+							{this.renderLayers()}
+
 			</ResizeAware>
+
+
+
 
 
 		</div>	;

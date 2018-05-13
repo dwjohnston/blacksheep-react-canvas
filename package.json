@@ -1,15 +1,12 @@
 {
   "name": "blacksheep-react-canvas",
-  "version": "1.2.10",
+  "version": "2.0.0",
   "description": "A canvas conponent for react, with some ease of use functions",
   "main": "build/index.js",
-  "peerDependencies": {
-    "react": "^15.5.4"
-  },
   "dependencies": {
     "lodash": "^4.17.4",
-    "react": "^15.5.4",
-    "react-dom": "^15.0.0",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
     "react-resize-aware": "^2.7.0",
     "webpack": "^2.6.1"
   },

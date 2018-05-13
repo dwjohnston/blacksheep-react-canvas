@@ -28,6 +28,8 @@ class CanvasCore {
 		this.requiresClear = false;
 		this.jpegRequested = false;
 
+		this.imagePromise = null; 
+
 		this.clearQueue();
 	}
 
@@ -96,7 +98,11 @@ class CanvasCore {
 
 	requestJpeg() {
 
-		console.log("request jpeg");
+		this.imagePromise = new Promise((resolve, reject) => {
+
+		}); 
+
+
 		this.jpegRequested = true;
 	}
 
