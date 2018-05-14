@@ -21,12 +21,10 @@ class ClearAll extends DrawableObject{
   draw(context) {
 
     //hardcoded black for now
-    if (this.color ===true) {
-      let max = adjustPosition(context, new Position(1,1));
-      context.clearRect(0, 0, max.x, max.y )
-    }
+    let max = adjustPosition(context, new Position(1,1));
+    context.clearRect(0, 0, max.x, max.y )
 
-    else {
+    if (this.color !== true) {
       new Rect(1, this.color, new Position(0,0)).draw(context);
     }
 

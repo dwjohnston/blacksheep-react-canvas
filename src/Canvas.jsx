@@ -4,6 +4,8 @@ import "./style.scss";
 
 import ResizeAware from 'react-resize-aware';
 
+import Rect from "./objects/drawableObjects/Rect";
+import Position from "./objects/Position";
 
 import Color from "./objects/Color";
 import ClearAll from "./objects/drawableObjects/ClearAll";
@@ -82,10 +84,6 @@ class Canvas extends React.Component {
 	drawAnimationFrame() {
 
 
-		if(this.state.canvasCore.getRequiresClear()){
-			this.clearAll();
-		}
-
 		if(this.state.canvasCore.getJpegRequested()) {
 			this.handleJpegRequest();
 		}
@@ -100,9 +98,6 @@ class Canvas extends React.Component {
 			if( q.length > 0) {
 
 				let newCanvas = document.createElement("canvas");
-
-
-				//let size = newCanvas.width > newCanvas.height ? newCanvas.height : newCanvas.width;
 				newCanvas.width = this.state.size;
 				newCanvas.height = this.state.size;
 				let newContext = newCanvas.getContext('2d');
@@ -110,6 +105,7 @@ class Canvas extends React.Component {
 				//Total hack for now
 				if (q[0] instanceof  ClearAll) {
 					q[0].draw(this.state.contexts[key]);
+					console.log("clear"); 
 				}
 
 				for (var obj of q){
@@ -139,18 +135,6 @@ class Canvas extends React.Component {
 			object.place(canvas);
 		}
 	}
-
-
-
-	clearAll() {
-
-		for (let context of this.state.contexts) {
-			context.clearRect(0,0, this.w, this.h);
-		}
-
-	}
-
-
 
 	renderLayers() {
 
