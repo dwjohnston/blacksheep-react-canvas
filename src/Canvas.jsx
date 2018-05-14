@@ -43,10 +43,10 @@ class Canvas extends React.Component {
 
 	}
 
-	resize(resizeDimensions) {
+	// resize(resizeDimensions) {
 
-		this.setState({size: resizeDimensions.width > resizeDimensions.height ? resizeDimensions.height : resizeDimensions.width});
-	}
+	// 	this.setState({size: resizeDimensions.width > resizeDimensions.height ? resizeDimensions.height : resizeDimensions.width});
+	// }
 
 	componentDidMount() {
 
@@ -78,7 +78,12 @@ class Canvas extends React.Component {
 		let image = this.refLayers[0].current.toDataURL("image/png");
 		console.log("foo");
 
-		this.props.getJpeg(image);
+		this.props.getJpeg({
+			image: image,
+			width: this.state.size, 
+			height: this.state.size, 
+		}
+		);
 	}
 
 	drawAnimationFrame() {
@@ -143,7 +148,7 @@ class Canvas extends React.Component {
 
 		console.log(this.props.layers);
 		for (let i = 0; i< this.props.layers.length; i++) {
-			layers.push( <canvas ref = {this.refLayers[i]} key = {"canvas-" + i }/>); 
+			layers.push( <canvas width = {500} height = {500} ref = {this.refLayers[i]} key = {"canvas-" + i }/>); 
 		}
 
 		return layers; 
@@ -155,17 +160,18 @@ class Canvas extends React.Component {
 //	{*/ref = {(div) => {this.setState({container: div})}}*/}
 //style={{ position: 'absolute', width: "100%", height: "100%"}}
 		return	<div className = "Canvas" id = {this.props.id} >
-			<ResizeAware 
+			{/* <ResizeAware 
 				onResize = {rd => this.resize(rd)}
 				>
 
 
-							{this.renderLayers()}
+							
 
-			</ResizeAware>
+			</ResizeAware> */}
 
 
 
+			{this.renderLayers()}
 
 
 		</div>	;
