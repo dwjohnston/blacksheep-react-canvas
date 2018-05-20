@@ -23,7 +23,7 @@ class Color {
 			Math.floor(this.r +v),
 			 Math.floor(this.g +v),
 			  Math.floor(this.b +v),
-				this.a + w
+				this.opacity + w
 		);
 
 }

@@ -28,8 +28,6 @@ class CanvasCore {
 		this.requiresClear = false;
 		this.jpegRequested = false;
 
-		this.imagePromise = null; 
-
 		this.clearQueue();
 	}
 
@@ -53,8 +51,6 @@ class CanvasCore {
 		for (let i = 0; i< this.layers; i++){
 			this.paintQueue[i] = [];
 		}
-
-
 	}
 
 	addPaintable(drawable) {
@@ -64,24 +60,20 @@ class CanvasCore {
 		//this.draqQueue.push(...drawable);
 	}
 
-	setRequiresClear(bool){
-		if (bool === null || bool === true || bool === undefined){
-			this.requiresClear = true;
-		}
+	// setRequiresClear(bool){
+	// 	if (bool === null || bool === true || bool === undefined){
+	// 		this.requiresClear = true;
+	// 	}
+	// 	else this.requiresClear = bool;
+	// }
 
+	// getRequiresClear() {
+	// 	let b =  this.requiresClear;
 
-		else this.requiresClear = bool;
+	// 	this.requiresClear = false;
 
-
-	}
-
-	getRequiresClear() {
-		let b =  this.requiresClear;
-
-		this.requiresClear = false;
-
-		return b;
-	}
+	// 	return b;
+	// }
 
 
 	getPaintQueue() {
@@ -97,12 +89,6 @@ class CanvasCore {
 	}
 
 	requestJpeg() {
-
-		this.imagePromise = new Promise((resolve, reject) => {
-
-		}); 
-
-
 		this.jpegRequested = true;
 	}
 
