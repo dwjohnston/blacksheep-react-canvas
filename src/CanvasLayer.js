@@ -1,11 +1,10 @@
-import Color from "./objects/Color";
 
 class CanvasLayer {
 
-  constructor(color = new Color(0, 0, 0, 1)) {
+  // constructor(color = new Color(0, 0, 0, 1)) {
 
-    this.color = color; 
-  }
+  //   this.color = color; 
+  // }
 
 }
 

@@ -1,14 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import "./style.scss";
-
-import ResizeAware from 'react-resize-aware';
-
-import Rect from "./objects/drawableObjects/Rect";
-import Position from "./objects/Position";
-
-import Color from "./objects/Color";
-import ClearAll from "./objects/drawableObjects/ClearAll";
+import {ClearAll} from "blacksheep-geometry"; 
 
 class Canvas extends React.Component {
 
@@ -86,6 +78,7 @@ class Canvas extends React.Component {
 			this.handleJpegRequest();
 		}
 
+
 		let pq = this.state.canvasCore.getPaintQueue();
 
 		for (let key in pq) {
@@ -99,12 +92,12 @@ class Canvas extends React.Component {
 				newCanvas.height = this.state.size;
 				let newContext = newCanvas.getContext('2d');
 
-				//Total hack for now
-				if (q[0] instanceof ClearAll) {
-					q[0].draw(this.state.contexts[key]);
-				}
 
 				for (var obj of q) {
+					if(obj.isClearAll) {
+						obj.draw(this.state.contexts[key]); 
+					}
+
 					if (obj) {
 						obj.draw(newContext);
 					}
